@@ -1,8 +1,9 @@
 {
-  "name": "audit",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "name": "documents",
+  "version": "1.0.0",
+  "description": "Todos los documentos propios de la lógica contable de Sigasac",
+  "author": "@aavillalbab",
+  "private": true,
   "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",

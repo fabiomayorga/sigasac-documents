@@ -8,6 +8,7 @@ import { MonthsService } from './months.service';
 
 @Module({
     imports: [DatabaseModule],
+    exports: [MonthsService],
     controllers: [MonthsController],
     providers: [...MonthsProvider, MonthsService]
 })

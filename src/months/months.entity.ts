@@ -7,11 +7,9 @@ import {
     PrimaryGeneratedColumn
 } from 'typeorm';
 
+import { BudgetNote } from 'src/budget-notes/budget-notes.entity';
 // import { ModificationRequest } from './ModificationRequest';
-// import { School } from './School';
-// import { State } from './State';
-// import { User } from './User';
-// import { BudgetNote } from './BudgetNote';
+import { State } from 'src/states/states.entity';
 
 @Entity({ name: 'months' })
 export class Month {
@@ -38,6 +36,12 @@ export class Month {
     stateId: number;
 
     // relationships
+    @OneToMany(
+        type => BudgetNote,
+        budgetNote => budgetNote.month
+    )
+    public budgetNotes!: BudgetNote[];
+
     // @OneToMany(
     //     type => ModificationRequest,
     //     modificationRequest => modificationRequest.month,
@@ -45,30 +49,10 @@ export class Month {
     // )
     // public modificationRequest!: ModificationRequest[];
 
-    // @OneToMany(
-    //     type => BudgetNote,
-    //     budgetNote => budgetNote.month
-    // )
-    // public budgetNotes!: BudgetNote[];
-
-    // @ManyToOne(
-    //     type => School,
-    //     school => school.months
-    // )
-    // @JoinColumn({ name: 'school_id', referencedColumnName: 'id' })
-    // public school!: School;
-
-    // @ManyToOne(
-    //     type => State,
-    //     state => state.months
-    // )
-    // @JoinColumn({ name: 'state_id', referencedColumnName: 'id' })
-    // public state!: State;
-
-    // @ManyToOne(
-    //     type => User,
-    //     user => user.months
-    // )
-    // @JoinColumn({ name: 'closed_by', referencedColumnName: 'id' })
-    // public user!: State;
+    @ManyToOne(
+        type => State,
+        state => state.months
+    )
+    @JoinColumn({ name: 'state_id', referencedColumnName: 'id' })
+    public state!: State;
 }

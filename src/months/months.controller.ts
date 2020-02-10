@@ -1,4 +1,14 @@
-import { Controller, Post, UseGuards, HttpStatus, Res, Body, Get, Put, Param } from '@nestjs/common';
+import {
+    Controller,
+    Post,
+    UseGuards,
+    HttpStatus,
+    Res,
+    Body,
+    Get,
+    Put,
+    Param
+} from '@nestjs/common';
 
 import { Response } from 'express';
 import { AuthGuard } from '@nestjs/passport';
@@ -10,7 +20,7 @@ import {
     ApiBearerAuth
 } from '@nestjs/swagger';
 
-import { APP} from 'src/config';
+import { APP } from 'src/config';
 
 import { RolesGuard, Roles, User } from 'src/utils';
 

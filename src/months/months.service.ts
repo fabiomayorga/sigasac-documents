@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { Repository, In } from 'typeorm';
 
 import { MONTH_REPOSITORY } from '../config';
 import { DatesHelper } from 'src/utils/helpers';
@@ -9,8 +9,10 @@ import { MonthDto, ClosedMonthDto } from './dto';
 
 @Injectable()
 export class MonthsService {
-    @Inject(MONTH_REPOSITORY)
-    private readonly month: Repository<Month>;
+    constructor(
+        @Inject(MONTH_REPOSITORY)
+        private readonly month: Repository<Month>
+    ) {}
 
     async create(monthDto: MonthDto) {
         try {
@@ -56,6 +58,19 @@ export class MonthsService {
             }
 
             return newMonth;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async getBySchoolId(schoolId: number) {
+        try {
+            return this.month.find({
+                where: {
+                    state: In([2, 3]),
+                    schoolId
+                }
+            });
         } catch (error) {
             throw error;
         }

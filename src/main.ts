@@ -10,7 +10,7 @@ async function bootstrap() {
 
     const options = new DocumentBuilder()
         .setTitle(`${APP.name}`.toUpperCase())
-        .setDescription(`${APP.name}`)
+        .setDescription(`${APP.description}`)
         .setVersion(APP.version)
         .addBearerAuth()
         .build();

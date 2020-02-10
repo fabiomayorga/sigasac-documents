@@ -9,14 +9,14 @@ async function bootstrap() {
     const app = await NestFactory.create(AppModule);
 
     const options = new DocumentBuilder()
-        .setTitle(APP.name)
-        .setDescription('Módulo para auditoría de bases de datos')
+        .setTitle(`${APP.name}`.toUpperCase())
+        .setDescription(`${APP.name}`)
         .setVersion(APP.version)
         .addBearerAuth()
         .build();
 
     const document = SwaggerModule.createDocument(app, options);
-    SwaggerModule.setup('audit/apiDoc', app, document);
+    SwaggerModule.setup(`${APP.name}/apiDoc`, app, document);
 
     await app.listen(APP.port);
 }

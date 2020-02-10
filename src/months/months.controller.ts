@@ -10,12 +10,14 @@ import {
     ApiBearerAuth
 } from '@nestjs/swagger';
 
+import { APP} from 'src/config';
+
 import { RolesGuard, Roles, User } from 'src/utils';
 
 import { MonthsService } from './months.service';
 import { MonthDto, ClosedMonthDto } from './dto';
 
-@Controller('documents/v1/months')
+@Controller(`${APP.baseURL}/months`)
 @ApiTags(`months`)
 @ApiBearerAuth()
 export class MonthsController {

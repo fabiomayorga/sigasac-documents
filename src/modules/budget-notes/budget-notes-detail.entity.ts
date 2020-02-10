@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 
 // import { Campus } from './Campus';
-import { BudgetNote } from 'src/budget-notes/budget-notes.entity';
+import { BudgetNote } from 'src/modules/budget-notes/budget-notes.entity';
 // import { BudgetAccount } from './BudgetAccount';
 // import { Project } from './Project';
 // import { Revenue } from './Revenue';

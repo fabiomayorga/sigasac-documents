@@ -1,6 +1,6 @@
 import { Entity, Column, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-import { Month } from 'src/months/months.entity';
+import { Month } from 'src/modules/months/months.entity';
 
 @Entity({ name: 'states' })
 export class State {

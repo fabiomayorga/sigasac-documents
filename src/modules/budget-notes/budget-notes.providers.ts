@@ -1,6 +1,6 @@
 import { Connection } from 'typeorm';
 
-import { DATABASE_CONNECTION, BUDGET_NOTE_REPOSITORY } from '../config';
+import { DATABASE_CONNECTION, BUDGET_NOTE_REPOSITORY } from '../../config';
 
 import { BudgetNote } from './budget-notes.entity';
 

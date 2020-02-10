@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Repository, In } from 'typeorm';
 
-import { MONTH_REPOSITORY } from '../config';
+import { MONTH_REPOSITORY } from '../../config';
 import { DatesHelper } from 'src/utils/helpers';
 
 import { Month } from './months.entity';

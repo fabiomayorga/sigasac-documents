@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { EasyconfigModule } from 'nestjs-easyconfig';
-import { AuthModule } from './auth/auth.module';
-import { BudgetNotesModule } from './budget-notes/budget-notes.module';
-import { MonthsModule } from './months/months.module';
-import { StatesModule } from './states/states.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { BudgetNotesModule } from './modules/budget-notes/budget-notes.module';
+import { MonthsModule } from './modules/months/months.module';
+import { StatesModule } from './modules/states/states.module';
+import { ModificationRequestModule } from './modules/modification-request/modification-request.module';
 
 @Module({
     imports: [
@@ -11,7 +12,8 @@ import { StatesModule } from './states/states.module';
         EasyconfigModule.register({}),
         BudgetNotesModule,
         MonthsModule,
-        StatesModule
+        StatesModule,
+        ModificationRequestModule
     ],
     controllers: [],
     providers: []

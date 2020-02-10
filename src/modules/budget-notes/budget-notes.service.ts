@@ -7,7 +7,7 @@ import {
     BUDGET_NOTE_DETAIL_REPOSITORY
 } from 'src/config';
 
-import { MonthsService } from 'src/months/months.service';
+import { MonthsService } from 'src/modules/months/months.service';
 
 import { BudgetNote } from './budget-notes.entity';
 import { BudgetNotesDetail } from './budget-notes-detail.entity';

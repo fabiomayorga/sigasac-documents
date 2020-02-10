@@ -1,6 +1,6 @@
 import { Entity, Column, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-// import { ModificationRequest } from './ModificationRequest';
+import { ModificationRequest } from 'src/modules/modification-request/modification-request.entity';
 
 @Entity({ name: 'request_status' })
 export class RequestStatus {
@@ -14,11 +14,11 @@ export class RequestStatus {
     @Column({ name: 'description', type: 'varchar' })
     description: string;
 
-    // relationships
-    // @OneToMany(
-    //     type => ModificationRequest,
-    //     modificationRequest => modificationRequest.requestStatus,
-    //     { nullable: true }
-    // )
-    // public modificationRequest!: ModificationRequest[];
+    relationships;
+    @OneToMany(
+        type => ModificationRequest,
+        modificationRequest => modificationRequest.requestStatus,
+        { nullable: true }
+    )
+    public modificationRequest!: ModificationRequest[];
 }

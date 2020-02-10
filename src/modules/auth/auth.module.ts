@@ -3,7 +3,7 @@ import { JwtModule } from '@nestjs/jwt';
 
 import { JwtStrategy } from './jwt.strategy';
 
-import { APP } from '../config';
+import { APP } from '../../config';
 
 @Module({
     imports: [

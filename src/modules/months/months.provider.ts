@@ -1,6 +1,6 @@
 import { Connection } from 'typeorm';
 
-import { DATABASE_CONNECTION, MONTH_REPOSITORY } from '../config';
+import { DATABASE_CONNECTION, MONTH_REPOSITORY } from '../../config';
 
 import { Month } from './months.entity';
 

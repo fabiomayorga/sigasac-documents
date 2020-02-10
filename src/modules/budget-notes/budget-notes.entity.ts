@@ -9,11 +9,11 @@ import {
     UpdateDateColumn
 } from 'typeorm';
 
-import { BudgetNotesDetail } from 'src/budget-notes/budget-notes-detail.entity';
+import { BudgetNotesDetail } from 'src/modules/budget-notes/budget-notes-detail.entity';
 // import { Concept } from './Concept';
 // import { Subconcept } from './Subconcept';
 // import { ThirdParty } from './ThirdParty';
-import { Month } from 'src/months/months.entity';
+import { Month } from 'src/modules/months/months.entity';
 
 @Entity({ name: 'budget_notes' })
 export class BudgetNote {

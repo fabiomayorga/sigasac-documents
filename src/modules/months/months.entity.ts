@@ -7,9 +7,9 @@ import {
     PrimaryGeneratedColumn
 } from 'typeorm';
 
-import { BudgetNote } from 'src/budget-notes/budget-notes.entity';
-// import { ModificationRequest } from './ModificationRequest';
-import { State } from 'src/states/states.entity';
+import { BudgetNote } from 'src/modules/budget-notes/budget-notes.entity';
+import { ModificationRequest } from 'src/modules/modification-request/modification-request.entity';
+import { State } from 'src/modules/states/states.entity';
 
 @Entity({ name: 'months' })
 export class Month {
@@ -42,12 +42,12 @@ export class Month {
     )
     public budgetNotes!: BudgetNote[];
 
-    // @OneToMany(
-    //     type => ModificationRequest,
-    //     modificationRequest => modificationRequest.month,
-    //     { nullable: true }
-    // )
-    // public modificationRequest!: ModificationRequest[];
+    @OneToMany(
+        type => ModificationRequest,
+        modificationRequest => modificationRequest.month,
+        { nullable: true }
+    )
+    public modificationRequest!: ModificationRequest[];
 
     @ManyToOne(
         type => State,

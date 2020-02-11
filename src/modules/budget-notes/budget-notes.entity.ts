@@ -10,8 +10,8 @@ import {
 } from 'typeorm';
 
 import { BudgetNotesDetail } from 'src/modules/budget-notes/budget-notes-detail.entity';
-// import { Concept } from './Concept';
-// import { Subconcept } from './Subconcept';
+import { Concept } from '../budgets/concepts.entity';
+import { Subconcept } from '../budgets/subconcepts.entity';
 // import { ThirdParty } from './ThirdParty';
 import { Month } from 'src/modules/months/months.entity';
 
@@ -101,26 +101,26 @@ export class BudgetNote {
     public budgetNotesDetail!: BudgetNotesDetail[];
 
     @ManyToOne(
+        type => Concept,
+        concept => concept.budgetNotes
+    )
+    @JoinColumn({ name: 'concept_id', referencedColumnName: 'id' })
+    public concept!: Concept;
+
+    @ManyToOne(
         type => Month,
         month => month.budgetNotes
     )
     @JoinColumn({ name: 'month_id', referencedColumnName: 'id' })
     public month!: Month;
 
-    // @ManyToOne(
-    //     type => Concept,
-    //     concept => concept.budgetNotes
-    // )
-    // @JoinColumn({ name: 'concept_id', referencedColumnName: 'id' })
-    // public concept!: Concept;
-
-    // @ManyToOne(
-    //     type => Subconcept,
-    //     subconcept => subconcept.budgetNotes,
-    //     { nullable: true }
-    // )
-    // @JoinColumn({ name: 'subconcept_id', referencedColumnName: 'id' })
-    // public subconcept!: Subconcept;
+    @ManyToOne(
+        type => Subconcept,
+        subconcept => subconcept.budgetNotes,
+        { nullable: true }
+    )
+    @JoinColumn({ name: 'subconcept_id', referencedColumnName: 'id' })
+    public subconcept!: Subconcept;
 
     // @ManyToOne(
     //     type => ThirdParty,

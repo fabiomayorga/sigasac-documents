@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { DatabaseModule } from '../../database/database.module';
+import { DatabaseModule } from 'src/modules/database/database.module';
 import { MonthsModule } from 'src/modules/months/months.module';
 
 import { BudgetNotesController } from './budget-notes.controller';

@@ -5,6 +5,7 @@ import { BudgetNotesModule } from './modules/budget-notes/budget-notes.module';
 import { MonthsModule } from './modules/months/months.module';
 import { StatesModule } from './modules/states/states.module';
 import { ModificationRequestModule } from './modules/modification-request/modification-request.module';
+import { ConceptsModule } from './modules/concepts/concepts.module';
 
 @Module({
     imports: [
@@ -13,7 +14,8 @@ import { ModificationRequestModule } from './modules/modification-request/modifi
         BudgetNotesModule,
         MonthsModule,
         StatesModule,
-        ModificationRequestModule
+        ModificationRequestModule,
+        ConceptsModule
     ],
     controllers: [],
     providers: []

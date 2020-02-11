@@ -4,9 +4,12 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { APP } from './config';
 
 import { AppModule } from './app.module';
+import { Logger } from '@nestjs/common';
 
 async function bootstrap() {
-    const app = await NestFactory.create(AppModule);
+    const app = await NestFactory.create(AppModule, {
+        logger: false
+    });
 
     const options = new DocumentBuilder()
         .setTitle(`${APP.name}`.toUpperCase())
@@ -18,7 +21,9 @@ async function bootstrap() {
     const document = SwaggerModule.createDocument(app, options);
     SwaggerModule.setup(`${APP.name}/apiDoc`, app, document);
 
-    await app.listen(APP.port);
+    await app.listen(APP.port, () =>
+        Logger.log(`app running at http://localhost:${APP.port}`)
+    );
 }
 
 bootstrap();

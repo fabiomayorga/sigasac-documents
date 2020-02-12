@@ -70,7 +70,7 @@ export class BudgetNotesController {
 
     @Get()
     @ApiOperation({})
-    // @UseGuards(AuthGuard('jwt'))
+    @UseGuards(AuthGuard('jwt'))
     async getAll(@Res() res: Response, @User('schoolId') schoolId: number = 5) {
         try {
             const budgetNotes = await this.budgetNotesService.getAll(schoolId);

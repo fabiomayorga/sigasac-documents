@@ -103,7 +103,7 @@ export class BudgetNotesDetail {
     //     { nullable: true }
     // )
     // @JoinColumn({ name: 'single_account_plan_id', referencedColumnName: 'id' })
-    // public singleAccountPlan!: SingleAccountPlan;
+    public singleAccountPlan!: any;
 
     // @ManyToOne(
     //     type => Campus,

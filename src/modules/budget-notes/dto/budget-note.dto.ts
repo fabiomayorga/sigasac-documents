@@ -6,15 +6,15 @@ export class BudgetNoteDto {
 
     monthId: number;
 
-    @ApiProperty()
+    @ApiProperty({ required: false })
     noteDate: string;
 
-    @ApiProperty()
+    @ApiProperty({ required: false })
     conceptId: number;
 
     @ApiProperty({
         type: BudgetNoteDetailDto,
-        required: false,
+        required: true,
         example: [
             {
                 value: 0,

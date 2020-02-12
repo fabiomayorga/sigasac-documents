@@ -9,10 +9,9 @@ import {
     UpdateDateColumn
 } from 'typeorm';
 
-import { BudgetNotesDetail } from 'src/modules/budget-notes/budget-notes-detail.entity';
+import { BudgetNotesDetail } from './budget-notes-detail.entity';
 import { Concept } from '../budgets/concepts.entity';
 import { Subconcept } from '../budgets/subconcepts.entity';
-// import { ThirdParty } from './ThirdParty';
 import { Month } from 'src/modules/months/months.entity';
 
 @Entity({ name: 'budget_notes' })
@@ -36,6 +35,9 @@ export class BudgetNote {
         type: 'date'
     })
     noteDate: Date;
+
+    @Column({ name: 'state', type: 'smallint', default: 1 })
+    state: number;
 
     @Column({
         name: 'month_id',
@@ -69,15 +71,6 @@ export class BudgetNote {
         nullable: true
     })
     subconceptId: number;
-
-    @Column({
-        name: 'third_party_id',
-        type: 'integer',
-        width: 11,
-        unsigned: true,
-        nullable: true
-    })
-    thirdPartyId: number;
 
     @CreateDateColumn({
         name: 'created_at',
@@ -121,12 +114,4 @@ export class BudgetNote {
     )
     @JoinColumn({ name: 'subconcept_id', referencedColumnName: 'id' })
     public subconcept!: Subconcept;
-
-    // @ManyToOne(
-    //     type => ThirdParty,
-    //     thirdParty => thirdParty.budgetNotes,
-    //     { nullable: true }
-    // )
-    // @JoinColumn({ name: 'third_party_id', referencedColumnName: 'id' })
-    // public thirdParty!: ThirdParty;
 }

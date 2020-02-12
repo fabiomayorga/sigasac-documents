@@ -7,6 +7,7 @@ import { BudgetNotesModule } from './modules/budget-notes/budget-notes.module';
 import { ModificationRequestModule } from './modules/modification-request/modification-request.module';
 import { MonthsModule } from './modules/months/months.module';
 import { StatesModule } from './modules/states/states.module';
+import { AvailabilityCertificatesModule } from './modules/availability-certificates/availability-certificates.module';
 
 @Module({
     imports: [
@@ -16,7 +17,8 @@ import { StatesModule } from './modules/states/states.module';
         BudgetNotesModule,
         ModificationRequestModule,
         MonthsModule,
-        StatesModule
+        StatesModule,
+        AvailabilityCertificatesModule
     ],
     controllers: [],
     providers: []

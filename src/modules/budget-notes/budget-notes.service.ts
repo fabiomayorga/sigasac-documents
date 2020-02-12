@@ -134,7 +134,11 @@ export class BudgetNotesService {
                 .leftJoinAndSelect('bn.concept', 'concept')
                 .leftJoinAndSelect('bn.subconcept', 'subconcept')
                 .leftJoinAndSelect('bn.budgetNotesDetail', 'bnd')
-                .leftJoinAndSelect('single_account_plan', 'sac', 'sac.id = bnd.singleAccountPlanId')
+                .leftJoinAndSelect(
+                    'single_account_plan',
+                    'sac',
+                    'sac.id = bnd.singleAccountPlanId'
+                )
                 // .leftJoinAndSelect('bnd.campus', 'campus')
                 // .leftJoinAndSelect('bnd.revenue', 'revenue')
                 // .leftJoinAndSelect('bnd.project', 'project')

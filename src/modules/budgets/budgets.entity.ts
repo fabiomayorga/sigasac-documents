@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
+import { AvailabilityCerticate } from '../availability-certificates/availability-certificates.entity';
 import { Concept } from './concepts.entity';
 
 @Entity({ name: 'budgets' })
@@ -24,4 +25,10 @@ export class Budget {
         concept => concept.budget
     )
     public concepts!: Concept[];
+
+    @OneToMany(
+        type => AvailabilityCerticate,
+        availabilityCerticate => availabilityCerticate.budget
+    )
+    public availabilityCerticates!: AvailabilityCerticate[];
 }

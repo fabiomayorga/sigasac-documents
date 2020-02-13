@@ -137,8 +137,18 @@ export class AvailabilityCertificatesService {
         }
     }
 
-    async getAll() {
+    async getAll(schoolId: number) {
         try {
+            return this.availabilityCerticate
+                .createQueryBuilder('ac')
+                .leftJoinAndSelect('ac.budget', 'budget')
+                .leftJoinAndSelect('ac.month', 'month')
+                .leftJoinAndSelect('ac.availabilityCerticateDetail', 'acd')
+                .leftJoinAndSelect('acd.budgetAccount', 'budgetAccount')
+                .leftJoinAndSelect('acd.campus', 'campus')
+                .leftJoinAndSelect('acd.revenue', 'revenue')
+                .where('ac.schoolId = :schoolId', { schoolId })
+                .getMany();
         } catch (error) {
             throw error;
         }

@@ -7,6 +7,7 @@ import {
     OneToMany
 } from 'typeorm';
 
+import { AvailabilityCerticateDetail } from '../availability-certificates/availability-certificates-detail.entity';
 import { BudgetNotesDetail } from '../budget-notes/budget-notes-detail.entity';
 
 @Entity({ name: 'revenues' })
@@ -36,4 +37,10 @@ export class Revenue {
         budgetNotesDetail => budgetNotesDetail.revenue
     )
     public budgetNotesDetail!: BudgetNotesDetail[];
+
+    @OneToMany(
+        type => AvailabilityCerticateDetail,
+        availabilityCerticateDetail => availabilityCerticateDetail.revenue
+    )
+    public availabilityCerticatesDetail!: AvailabilityCerticateDetail[];
 }

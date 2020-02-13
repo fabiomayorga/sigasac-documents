@@ -9,6 +9,10 @@ import {
 } from 'typeorm';
 
 import { AvailabilityCerticate } from './availability-certificates.entity';
+import { BudgetAccount } from '../entities/budget-account.entity';
+import { Campus } from '../entities/campus.entity';
+import { Project } from '../entities/project.entity';
+import { Revenue } from '../entities/revenue.entity';
 
 @Entity({ name: 'availability_certificate_detail' })
 export class AvailabilityCerticateDetail {
@@ -53,15 +57,6 @@ export class AvailabilityCerticateDetail {
     campusId: number;
 
     @Column({
-        name: 'revenue_id',
-        type: 'integer',
-        width: 11,
-        unsigned: true,
-        nullable: true
-    })
-    revenueId: number;
-
-    @Column({
         name: 'project_id',
         type: 'integer',
         width: 11,
@@ -69,6 +64,15 @@ export class AvailabilityCerticateDetail {
         nullable: true
     })
     projectId: number;
+
+    @Column({
+        name: 'revenue_id',
+        type: 'integer',
+        width: 11,
+        unsigned: true,
+        nullable: true
+    })
+    revenueId: number;
 
     @CreateDateColumn({
         name: 'created_at',
@@ -95,4 +99,36 @@ export class AvailabilityCerticateDetail {
         referencedColumnName: 'id'
     })
     public availabilityCerticate!: AvailabilityCerticate;
+
+    @ManyToOne(
+        type => BudgetAccount,
+        budgetAccount => budgetAccount.availabilityCerticatesDetail,
+        { nullable: true }
+    )
+    @JoinColumn({ name: 'budget_account_id', referencedColumnName: 'id' })
+    public budgetAccount!: BudgetAccount;
+
+    @ManyToOne(
+        type => Campus,
+        campus => campus.availabilityCerticatesDetail,
+        { nullable: true }
+    )
+    @JoinColumn({ name: 'campus_id', referencedColumnName: 'id' })
+    public campus!: Campus;
+
+    @ManyToOne(
+        type => Project,
+        project => project.availabilityCerticatesDetail,
+        { nullable: true }
+    )
+    @JoinColumn({ name: 'revenue_id', referencedColumnName: 'id' })
+    public project!: Project;
+
+    @ManyToOne(
+        type => Revenue,
+        revenue => revenue.availabilityCerticatesDetail,
+        { nullable: true }
+    )
+    @JoinColumn({ name: 'project_id', referencedColumnName: 'id' })
+    public revenue!: Revenue;
 }

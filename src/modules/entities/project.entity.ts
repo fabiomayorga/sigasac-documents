@@ -9,6 +9,7 @@ import {
     OneToMany
 } from 'typeorm';
 
+import { AvailabilityCerticateDetail } from '../availability-certificates/availability-certificates-detail.entity';
 import { BudgetNotesDetail } from '../budget-notes/budget-notes-detail.entity';
 
 @Entity({ name: 'projects' })
@@ -47,6 +48,12 @@ export class Project {
     updatedAt: Date;
 
     // relationships
+    @OneToMany(
+        type => AvailabilityCerticateDetail,
+        availabilityCerticateDetail => availabilityCerticateDetail.project
+    )
+    public availabilityCerticatesDetail!: AvailabilityCerticateDetail[];
+
     @OneToMany(
         type => BudgetNotesDetail,
         budgetNotesDetail => budgetNotesDetail.project

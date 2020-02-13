@@ -29,7 +29,7 @@ import { AvailabilityCertificateDto } from './dto';
 import { User } from 'src/utils';
 
 @Controller(`${APP.baseURL}/availability-certificates`)
-@ApiTags(`availability-certificates`)
+@ApiTags(`Availability Certificates`)
 @ApiBearerAuth()
 export class AvailabilityCertificatesController {
     constructor(
@@ -55,6 +55,32 @@ export class AvailabilityCertificatesController {
 
             res.status(HttpStatus.CREATED).send({
                 availabilityCertificate
+            });
+        } catch (error) {
+            if (error.message.statusCode) {
+                return res.status(error.message.statusCode).send({
+                    message: error.message
+                });
+            }
+
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
+                message: error.message,
+                stack: error.stack
+            });
+        }
+    }
+
+    @Get()
+    @ApiOperation({})
+    @UseGuards(AuthGuard('jwt'))
+    async getAll(@Res() res: Response, @User('schoolId') schoolId: number) {
+        try {
+            const availabilityCertificates = await this.availabilityCertificatesService.getAll(
+                schoolId
+            );
+
+            res.status(HttpStatus.OK).send({
+                availabilityCertificates
             });
         } catch (error) {
             if (error.message.statusCode) {

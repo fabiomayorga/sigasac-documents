@@ -8,12 +8,11 @@ import {
     UpdateDateColumn
 } from 'typeorm';
 
-// import { Campus } from './Campus';
+import { Campus } from '../entities/campus.entity';
 import { BudgetNote } from 'src/modules/budget-notes/budget-notes.entity';
-// import { BudgetAccount } from './BudgetAccount';
-// import { Project } from './Project';
-// import { Revenue } from './Revenue';
-// import { SingleAccountPlan } from './SingleAccountPlan';
+import { Project } from '../entities/project.entity';
+import { Revenue } from '../entities/revenue.entity';
+import { SingleAccountPlan } from '../entities/single-account-plan.entity';
 
 @Entity()
 export class BudgetNotesDetail {
@@ -97,35 +96,35 @@ export class BudgetNotesDetail {
     @JoinColumn({ name: 'budget_note_id', referencedColumnName: 'id' })
     public budgetNote!: BudgetNote;
 
-    // @ManyToOne(
-    //     type => SingleAccountPlan,
-    //     singleAccountPlan => singleAccountPlan.budgetNotesDetail,
-    //     { nullable: true }
-    // )
-    // @JoinColumn({ name: 'single_account_plan_id', referencedColumnName: 'id' })
-    public singleAccountPlan!: any;
+    @ManyToOne(
+        type => Campus,
+        campus => campus.budgetNotesDetail,
+        { nullable: true }
+    )
+    @JoinColumn({ name: 'campus_id', referencedColumnName: 'id' })
+    public campus!: Campus;
 
-    // @ManyToOne(
-    //     type => Campus,
-    //     campus => campus.budgetNotesDetail,
-    //     { nullable: true }
-    // )
-    // @JoinColumn({ name: 'campus_id', referencedColumnName: 'id' })
-    // public campus!: Campus;
+    @ManyToOne(
+        type => Project,
+        project => project.budgetNotesDetail,
+        { nullable: true }
+    )
+    @JoinColumn({ name: 'project_id', referencedColumnName: 'id' })
+    public project!: Project;
 
-    // @ManyToOne(
-    //     type => Revenue,
-    //     revenue => revenue.budgetNotesDetail,
-    //     { nullable: true }
-    // )
-    // @JoinColumn({ name: 'revenue_id', referencedColumnName: 'id' })
-    // public revenue!: Revenue;
+    @ManyToOne(
+        type => Revenue,
+        revenue => revenue.budgetNotesDetail,
+        { nullable: true }
+    )
+    @JoinColumn({ name: 'revenue_id', referencedColumnName: 'id' })
+    public revenue!: Revenue;
 
-    // @ManyToOne(
-    //     type => Project,
-    //     project => project.budgetNotesDetail,
-    //     { nullable: true }
-    // )
-    // @JoinColumn({ name: 'project_id', referencedColumnName: 'id' })
-    // public project!: Project;
+    @ManyToOne(
+        type => SingleAccountPlan,
+        singleAccountPlan => singleAccountPlan.budgetNotesDetail,
+        { nullable: true }
+    )
+    @JoinColumn({ name: 'single_account_plan_id', referencedColumnName: 'id' })
+    public singleAccountPlan!: SingleAccountPlan;
 }

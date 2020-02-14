@@ -10,6 +10,8 @@ import {
 } from 'typeorm';
 
 import { Action } from './action.entity';
+import { AvailabilityCerticate } from '../availability-certificates/availability-certificates.entity';
+import { BudgetNote } from '../budget-notes/budget-notes.entity';
 
 @Entity({ name: 'approvers_reviewers' })
 export class ApproverReviewer {
@@ -63,9 +65,19 @@ export class ApproverReviewer {
     // )
     // public availabilityCerticatesDetail!: AvailabilityCerticateDetail[];
 
-    // @OneToMany(
-    //     type => BudgetNotesDetail,
-    //     budgetNotesDetail => budgetNotesDetail.campus
-    // )
-    // public budgetNotesDetail!: BudgetNotesDetail[];
+    @OneToMany(
+        type => BudgetNote,
+        budgetNotes => {
+            budgetNotes.approver, budgetNotes.reviewer;
+        }
+    )
+    public budgetNotes!: BudgetNote[];
+
+    @OneToMany(
+        type => AvailabilityCerticate,
+        availabilityCerticate => {
+            availabilityCerticate.approver, availabilityCerticate.reviewer;
+        }
+    )
+    public availabilityCerticates!: AvailabilityCerticate[];
 }

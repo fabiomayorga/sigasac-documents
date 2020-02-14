@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 
 import { AvailabilityCerticateDetail } from './availability-certificates-detail.entity';
+import { ApproverReviewer } from '../approver-reviewer/approver-reviewer.entity';
 import { Budget } from 'src/modules/budgets/budgets.entity';
 import { Month } from 'src/modules/months/months.entity';
 
@@ -111,4 +112,25 @@ export class AvailabilityCerticate {
             availabilityCerticateDetail.availabilityCerticate
     )
     public availabilityCerticateDetail!: AvailabilityCerticateDetail[];
+
+    @ManyToOne(
+        type => ApproverReviewer,
+        approver => approver.availabilityCerticates
+    )
+    @JoinColumn({ name: 'approver_id', referencedColumnName: 'id' })
+    public approver!: ApproverReviewer;
+
+    @ManyToOne(
+        type => ApproverReviewer,
+        reviewer => reviewer.availabilityCerticates
+    )
+    @JoinColumn({ name: 'reviewer_id', referencedColumnName: 'id' })
+    public reviewer!: ApproverReviewer;
+
+    // @ManyToOne(
+    //     type => User,
+    //     elaborator => elaborator.budgetNotes
+    // )
+    // @JoinColumn({ name: 'elaborator_id', referencedColumnName: 'id' })
+    // public elaborator!: User;
 }

@@ -8,6 +8,7 @@ import { ModificationRequestModule } from './modules/modification-request/modifi
 import { MonthsModule } from './modules/months/months.module';
 import { StatesModule } from './modules/states/states.module';
 import { AvailabilityCertificatesModule } from './modules/availability-certificates/availability-certificates.module';
+import { ApproverReviewerModule } from './modules/approver-reviewer/approver-reviewer.module';
 
 @Module({
     imports: [
@@ -18,7 +19,8 @@ import { AvailabilityCertificatesModule } from './modules/availability-certifica
         ModificationRequestModule,
         MonthsModule,
         StatesModule,
-        AvailabilityCertificatesModule
+        AvailabilityCertificatesModule,
+        ApproverReviewerModule
     ],
     controllers: [],
     providers: []

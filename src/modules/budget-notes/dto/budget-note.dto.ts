@@ -6,6 +6,8 @@ export class BudgetNoteDto {
 
     monthId: number;
 
+    totalAmount: number;
+
     @ApiProperty({ required: false })
     noteDate: string;
 

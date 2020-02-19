@@ -42,6 +42,7 @@ export class BudgetNotesService {
             }
 
             budgetNoteDto.monthId = months[0].id;
+            budgetNoteDto.totalAmount = budgetNoteDto.budgetNotesDetail.map(d => d.value).reduce((acc, cur) => acc + cur);
 
             const _budgetNote = await this.budgetNote.save(budgetNoteDto);
 
@@ -114,6 +115,10 @@ export class BudgetNotesService {
                         budgetNoteId: _budgetNote.id
                     })
                     .execute();
+
+                _budgetNote.totalAmount = budgetNotesDetailDto.map(d => d.value).reduce((acc, cur) => acc + cur);
+
+                await this.budgetNote.save(_budgetNote);
 
                 await this.budgetNoteDetail.save(
                     this.addBudgetIdToBudgetNotesDetail(

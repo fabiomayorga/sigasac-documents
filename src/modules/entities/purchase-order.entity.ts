@@ -9,9 +9,10 @@ import {
     UpdateDateColumn
 } from 'typeorm';
 
-import { Month } from 'src/modules/months/months.entity';
 import { ApproverReviewer } from '../approver-reviewer/approver-reviewer.entity';
+import { Month } from 'src/modules/months/months.entity';
 import { PurchaseOrderDetail } from './purchase-order-detail.entity';
+import { ThirdParty } from './third-party.entity';
 
 @Entity({ name: 'purchase_orders' })
 export class PurchaseOrder {
@@ -136,6 +137,13 @@ export class PurchaseOrder {
     )
     @JoinColumn({ name: 'reviewer_id', referencedColumnName: 'id' })
     public reviewer!: ApproverReviewer;
+
+    @ManyToOne(
+        type => ThirdParty,
+        thirdParty => thirdParty.purchaseOrders
+    )
+    @JoinColumn({ name: 'third_party_id', referencedColumnName: 'id' })
+    public thirdParty!: ThirdParty;
 
     // @ManyToOne(
     //     type => User,

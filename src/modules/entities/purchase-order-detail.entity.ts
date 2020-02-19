@@ -10,6 +10,7 @@ import {
 import { PurchaseOrder } from './purchase-order.entity';
 import { Revenue } from './revenue.entity';
 import { BudgetAccount } from './budget-account.entity';
+import { AvailabilityCertificate } from '../availability-certificates/availability-certificates.entity';
 
 @Entity({ name: 'purchase_orders_detail' })
 export class PurchaseOrderDetail {
@@ -64,6 +65,17 @@ export class PurchaseOrderDetail {
     revenueId: number;
 
     // relationships
+    @ManyToOne(
+        type => AvailabilityCertificate,
+        availabilityCertificate => availabilityCertificate.purchaseOrdersDetail,
+        { nullable: true }
+    )
+    @JoinColumn({
+        name: 'availability_certificate_id',
+        referencedColumnName: 'id'
+    })
+    public availabilityCertificate!: AvailabilityCertificate;
+
     @ManyToOne(
         type => BudgetAccount,
         budgetAccount => budgetAccount.purchaseOrdersDetail,

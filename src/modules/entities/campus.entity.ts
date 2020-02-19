@@ -9,7 +9,7 @@ import {
     UpdateDateColumn
 } from 'typeorm';
 
-import { AvailabilityCerticateDetail } from '../availability-certificates/availability-certificates-detail.entity';
+import { AvailabilityCertificateDetail } from '../availability-certificates/availability-certificates-detail.entity';
 import { BudgetNotesDetail } from '../budget-notes/budget-notes-detail.entity';
 
 @Entity({ name: 'campus' })
@@ -49,10 +49,10 @@ export class Campus {
 
     // relationships
     @OneToMany(
-        type => AvailabilityCerticateDetail,
+        type => AvailabilityCertificateDetail,
         availabilityCerticateDetail => availabilityCerticateDetail.campus
     )
-    public availabilityCerticatesDetail!: AvailabilityCerticateDetail[];
+    public availabilityCerticatesDetail!: AvailabilityCertificateDetail[];
 
     @OneToMany(
         type => BudgetNotesDetail,

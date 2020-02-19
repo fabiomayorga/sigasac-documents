@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 
 import { Action } from './action.entity';
-import { AvailabilityCerticate } from '../availability-certificates/availability-certificates.entity';
+import { AvailabilityCertificate } from '../availability-certificates/availability-certificates.entity';
 import { BudgetNote } from '../budget-notes/budget-notes.entity';
 import { PurchaseOrder } from '../entities/purchase-order.entity';
 
@@ -75,12 +75,12 @@ export class ApproverReviewer {
     public budgetNotes!: BudgetNote[];
 
     @OneToMany(
-        type => AvailabilityCerticate,
+        type => AvailabilityCertificate,
         availabilityCerticate => {
             availabilityCerticate.approver, availabilityCerticate.reviewer;
         }
     )
-    public availabilityCerticates!: AvailabilityCerticate[];
+    public availabilityCerticates!: AvailabilityCertificate[];
 
     @OneToMany(
         type => PurchaseOrder,

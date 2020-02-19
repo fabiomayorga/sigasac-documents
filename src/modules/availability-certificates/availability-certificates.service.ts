@@ -37,9 +37,7 @@ export class AvailabilityCertificatesService {
         private readonly approverReviewerService: ApproverReviewerService
     ) {}
 
-    async create(
-        availabilityCertificateDto: AvailabilityCertificateDto
-    ) {
+    async create(availabilityCertificateDto: AvailabilityCertificateDto) {
         try {
             const months = await this.monthsService.getBySchoolId(
                 availabilityCertificateDto.schoolId

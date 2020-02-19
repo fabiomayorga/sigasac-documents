@@ -7,7 +7,7 @@ import {
     OneToMany
 } from 'typeorm';
 
-import { AvailabilityCerticateDetail } from '../availability-certificates/availability-certificates-detail.entity';
+import { AvailabilityCertificateDetail } from '../availability-certificates/availability-certificates-detail.entity';
 import { BudgetNotesDetail } from '../budget-notes/budget-notes-detail.entity';
 import { PurchaseOrderDetail } from './purchase-order-detail.entity';
 
@@ -40,10 +40,10 @@ export class Revenue {
     public budgetNotesDetail!: BudgetNotesDetail[];
 
     @OneToMany(
-        type => AvailabilityCerticateDetail,
+        type => AvailabilityCertificateDetail,
         availabilityCerticateDetail => availabilityCerticateDetail.revenue
     )
-    public availabilityCerticatesDetail!: AvailabilityCerticateDetail[];
+    public availabilityCerticatesDetail!: AvailabilityCertificateDetail[];
 
     @OneToMany(
         type => PurchaseOrderDetail,

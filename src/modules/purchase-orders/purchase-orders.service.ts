@@ -22,7 +22,7 @@ export class PurchaseOrdersService {
         private readonly purchaseOrder: Repository<PurchaseOrder>,
         private readonly monthsService: MonthsService,
         private readonly approverReviewerService: ApproverReviewerService
-    ) {}
+    ) { }
 
     async create(purchaseOrderDto: PurchaseOrderDto) {
         try {
@@ -52,15 +52,16 @@ export class PurchaseOrdersService {
             purchaseOrderDto.approverId = approverId;
             purchaseOrderDto.reviewerId = reviewerId;
 
-            const _purchaseOrder = await this.purchaseOrder.save(purchaseOrderDto);
+            const _purchaseOrder = await this.purchaseOrder.save(
+                purchaseOrderDto
+            );
 
             await this.purchaseOrderDetail.save(
                 this.addPurchaseOrderIdToPurchaseOrderDetail(
                     _purchaseOrder.id,
                     purchaseOrderDto.purchaseOrdersDetailDto
                 )
-            )
-
+            );
         } catch (error) {
             throw error;
         }
@@ -83,7 +84,19 @@ export class PurchaseOrdersService {
 
     async getAll(schoolId: number) {
         try {
-            return this.purchaseOrder.find({ where: { schoolId } });
+            return this.purchaseOrder
+                .createQueryBuilder('order')
+                .leftJoinAndSelect('order.month', 'month')
+                .leftJoinAndSelect('order.thirdParty', 'thirdParty')
+                .leftJoinAndSelect('order.approver', 'approver')
+                .leftJoinAndSelect('order.reviewer', 'reviewer')
+                // .leftJoinAndSelect('order.elaborator', 'elaborator')
+                .leftJoinAndSelect('order.purchaseOrdersDetail', 'detail')
+                .leftJoinAndSelect('detail.availabilityCerticate', 'ac')
+                .leftJoinAndSelect('detail.budgetAccount', 'ba')
+                .leftJoinAndSelect('detail.revenue', 'r')
+                .where('order.schoolId = :schoolId', { schoolId })
+                .getMany();
         } catch (error) {
             throw error;
         }

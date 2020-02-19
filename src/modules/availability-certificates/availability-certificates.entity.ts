@@ -13,6 +13,7 @@ import { AvailabilityCertificateDetail } from './availability-certificates-detai
 import { ApproverReviewer } from '../approver-reviewer/approver-reviewer.entity';
 import { Budget } from 'src/modules/budgets/budgets.entity';
 import { Month } from 'src/modules/months/months.entity';
+import { PurchaseOrderDetail } from '../entities/purchase-order-detail.entity';
 
 @Entity({ name: 'availability_certificates' })
 export class AvailabilityCertificate {
@@ -133,6 +134,13 @@ export class AvailabilityCertificate {
     )
     @JoinColumn({ name: 'reviewer_id', referencedColumnName: 'id' })
     public reviewer!: ApproverReviewer;
+
+    @OneToMany(
+        type => PurchaseOrderDetail,
+        purchaseOrderDetail =>
+        purchaseOrderDetail.availabilityCertificate
+    )
+    public purchaseOrdersDetail!: PurchaseOrderDetail[];
 
     // @ManyToOne(
     //     type => User,

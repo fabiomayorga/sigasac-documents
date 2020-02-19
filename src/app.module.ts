@@ -9,6 +9,7 @@ import { StatesModule } from './modules/states/states.module';
 import { AvailabilityCertificatesModule } from './modules/availability-certificates/availability-certificates.module';
 import { ApproverReviewerModule } from './modules/approver-reviewer/approver-reviewer.module';
 import { PurchaseOrdersModule } from './modules/purchase-orders/purchase-orders.module';
+import { CertificatesReceivedModule } from './modules/certificates-received/certificates-received.module';
 
 @Module({
     imports: [
@@ -21,7 +22,8 @@ import { PurchaseOrdersModule } from './modules/purchase-orders/purchase-orders.
         StatesModule,
         AvailabilityCertificatesModule,
         ApproverReviewerModule,
-        PurchaseOrdersModule
+        PurchaseOrdersModule,
+        CertificatesReceivedModule
     ],
     controllers: [],
     providers: []

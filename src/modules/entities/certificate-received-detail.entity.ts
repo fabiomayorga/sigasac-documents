@@ -1,0 +1,89 @@
+import {
+    Entity,
+    Column,
+    JoinColumn,
+    ManyToOne,
+    OneToMany,
+    PrimaryGeneratedColumn
+} from 'typeorm';
+
+import { CertificateReceived } from './certificate-received.entity';
+import { BudgetAccount } from './budget-account.entity';
+import { Revenue } from './revenue.entity';
+
+@Entity({ name: 'certificates_received_detail' })
+export class CertificateReceivedDetail {
+    @PrimaryGeneratedColumn('increment', {
+        name: 'id',
+        type: 'integer',
+        unsigned: true
+    })
+    id: number;
+
+    @Column({
+        name: 'value',
+        type: 'double precision',
+        unsigned: true
+    })
+    value: number;
+
+    @Column({
+        name: 'availability_certificate_id',
+        type: 'integer',
+        width: 11,
+        unsigned: true,
+        nullable: true
+    })
+    availabilityCerticateId: number;
+
+    @Column({
+        name: 'budget_account_id',
+        type: 'integer',
+        width: 11,
+        unsigned: true,
+        nullable: true
+    })
+    budgetAccountId: number;
+
+    @Column({
+        name: 'purchase_order_id',
+        type: 'integer',
+        width: 11,
+        unsigned: true,
+        nullable: true
+    })
+    purchaseOrderId: number;
+
+    @Column({
+        name: 'revenue_id',
+        type: 'integer',
+        width: 11,
+        unsigned: true,
+        nullable: true
+    })
+    revenueId: number;
+
+    // relationships
+    @ManyToOne(
+        type => BudgetAccount,
+        budgetAccount => budgetAccount.purchaseOrdersDetail,
+        { nullable: true }
+    )
+    @JoinColumn({ name: 'budget_account_id', referencedColumnName: 'id' })
+    public budgetAccount!: BudgetAccount;
+
+    @ManyToOne(
+        type => CertificateReceived,
+        certificateReceived => certificateReceived.certificatesReceivedDetail
+    )
+    @JoinColumn({ name: 'purchase_order_id', referencedColumnName: 'id' })
+    public certificateReceived!: CertificateReceived;
+
+    @ManyToOne(
+        type => Revenue,
+        revenue => revenue.purchaseOrdersDetail,
+        { nullable: true }
+    )
+    @JoinColumn({ name: 'revenue_id', referencedColumnName: 'id' })
+    public revenue!: Revenue;
+}

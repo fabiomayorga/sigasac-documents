@@ -15,7 +15,7 @@ async function bootstrap() {
     app.useGlobalFilters(new HttpExceptionFilter());
 
     app.enableCors();
-    
+
     const options = new DocumentBuilder()
         .setTitle(`${APP.name}`.toUpperCase())
         .setDescription(`${APP.description}`)

@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 
-import { DatabaseModule } from "../database/database.module";
+import { DatabaseModule } from '../database/database.module';
 
 import { PurchaseOrdersController } from './purchase-orders.controller';
-import { PurchaseOrderProvider } from "./purcharse-orders.provider";
+import { PurchaseOrderProvider } from './purcharse-orders.provider';
 import { PurchaseOrdersService } from './purchase-orders.service';
 
 @Module({

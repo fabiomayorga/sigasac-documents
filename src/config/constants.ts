@@ -7,6 +7,9 @@ export const AVAILABILITY_CERTIFICATE_DETAIL_REPOSITORY =
 export const BUDGET_REPOSITORY = 'budgets';
 export const BUDGET_NOTE_REPOSITORY = 'budget_notes';
 export const BUDGET_NOTE_DETAIL_REPOSITORY = 'budget_notes_detail';
+export const CERTIFICATE_RECEIVED_REPOSITORY = 'certificates_received';
+export const CERTIFICATE_RECEIVED_DETAIL_REPOSITORY =
+    'certificates_received_detail';
 export const CONCEPT_REPOSITORY = 'concepts';
 export const MODIFICATION_REQUEST_REPOSITORY = 'modification_requests';
 export const MONTH_REPOSITORY = 'months';

@@ -1,7 +1,7 @@
 import { Injectable, Inject, NotFoundException } from '@nestjs/common';
 import { Repository, getConnection } from 'typeorm';
 
-import { ACTIONS, APPROVER_REVIEWER } from 'src/config';
+import { ACTIONS_REPOSITORY, APPROVER_REVIEWER_REPOSITORY } from 'src/config';
 
 import { Action } from './action.entity';
 import { ApproverReviewer } from './approver-reviewer.entity';
@@ -11,9 +11,9 @@ import { ApproverReviewerDto } from './dto';
 @Injectable()
 export class ApproverReviewerService {
     constructor(
-        @Inject(ACTIONS)
+        @Inject(ACTIONS_REPOSITORY)
         private readonly action: Repository<Action>,
-        @Inject(APPROVER_REVIEWER)
+        @Inject(APPROVER_REVIEWER_REPOSITORY)
         private readonly approverReviewer: Repository<ApproverReviewer>
     ) {}
 

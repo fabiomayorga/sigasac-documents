@@ -10,6 +10,7 @@ import {
 import { BudgetNote } from 'src/modules/budget-notes/budget-notes.entity';
 import { ModificationRequest } from 'src/modules/modification-request/modification-request.entity';
 import { State } from 'src/modules/states/states.entity';
+import { PurchaseOrder } from '../entities/purchase-order.entity';
 
 @Entity({ name: 'months' })
 export class Month {
@@ -48,6 +49,13 @@ export class Month {
         { nullable: true }
     )
     public modificationRequest!: ModificationRequest[];
+
+    @OneToMany(
+        type => PurchaseOrder,
+        purchaseOrder => purchaseOrder.month,
+        { nullable: true }
+    )
+    public purchaseOrders!: PurchaseOrder[];
 
     @ManyToOne(
         type => State,

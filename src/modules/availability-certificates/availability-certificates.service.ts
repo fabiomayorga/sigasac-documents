@@ -33,7 +33,7 @@ export class AvailabilityCertificatesService {
             AvailabilityCerticateDetail
         >,
         private readonly monthsService: MonthsService
-    ) { }
+    ) {}
 
     async create(availabilityCertificateDto: AvailabilityCertificateDto) {
         try {

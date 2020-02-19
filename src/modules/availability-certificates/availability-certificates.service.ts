@@ -132,6 +132,8 @@ export class AvailabilityCertificatesService {
                     .map(d => d.value)
                     .reduce((acc, cur) => acc + cur);
 
+                await this.availabilityCerticate.save(_availabilityCertificate);
+
                 await this.availabilityCerticateDetail.save(
                     this.addAvailabilityCertificateIdToAvailabilityCertificateDetail(
                         _availabilityCertificate.id,

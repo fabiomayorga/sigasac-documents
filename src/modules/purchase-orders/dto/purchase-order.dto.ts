@@ -9,6 +9,15 @@ export class PurchaseOrderDto {
 
     totalAmount: number;
 
+    approverId: number;
+
+    elaboratorId: number;
+
+    reviewerId: number;
+
+    @ApiProperty()
+    thirdPartyId: number;
+
     @ApiProperty()
     dateElaboration: Date;
 
@@ -25,9 +34,8 @@ export class PurchaseOrderDto {
             {
                 value: 0,
                 budgetAccountId: 0,
-                campusId: 0,
                 revenueId: 0,
-                projectId: 0
+                availabilityCerticateId: 0
             }
         ]
     })

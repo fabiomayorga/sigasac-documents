@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, ConflictException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 
 import {
@@ -8,6 +8,10 @@ import {
 
 import { PurchaseOrderDetail } from '../entities/purchase-order-detail.entity';
 import { PurchaseOrder } from '../entities/purchase-order.entity';
+import { PurchaseOrderDto, PurchaseOrderDetailDto } from './dto';
+
+import { ApproverReviewerService } from '../approver-reviewer/approver-reviewer.service';
+import { MonthsService } from 'src/modules/months/months.service';
 
 @Injectable()
 export class PurchaseOrdersService {
@@ -15,8 +19,67 @@ export class PurchaseOrdersService {
         @Inject(PURCHASE_ORDER_DETAIL_REPOSITORY)
         private readonly purchaseOrderDetail: Repository<PurchaseOrderDetail>,
         @Inject(PURCHASE_ORDER_REPOSITORY)
-        private readonly purchaseOrder: Repository<PurchaseOrder>
+        private readonly purchaseOrder: Repository<PurchaseOrder>,
+        private readonly monthsService: MonthsService,
+        private readonly approverReviewerService: ApproverReviewerService
     ) {}
+
+    async create(purchaseOrderDto: PurchaseOrderDto) {
+        try {
+            const months = await this.monthsService.getBySchoolId(
+                purchaseOrderDto.schoolId
+            );
+
+            if (!months.length) {
+                throw new ConflictException(
+                    'No hay periodos creados o abiertos actualmente para la institución'
+                );
+            }
+
+            const {
+                approverId,
+                reviewerId
+            } = await this.approverReviewerService.getOnlyActives(
+                purchaseOrderDto.schoolId
+            );
+
+            purchaseOrderDto.monthId = months[0].id;
+
+            purchaseOrderDto.totalAmount = purchaseOrderDto.purchaseOrdersDetailDto
+                .map(d => d.value)
+                .reduce((acc, cur) => acc + cur);
+
+            purchaseOrderDto.approverId = approverId;
+            purchaseOrderDto.reviewerId = reviewerId;
+
+            const _purchaseOrder = await this.purchaseOrder.save(purchaseOrderDto);
+
+            await this.purchaseOrderDetail.save(
+                this.addPurchaseOrderIdToPurchaseOrderDetail(
+                    _purchaseOrder.id,
+                    purchaseOrderDto.purchaseOrdersDetailDto
+                )
+            )
+
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    private addPurchaseOrderIdToPurchaseOrderDetail(
+        purchaseOrderId: number,
+        purchaseOrdersDetail: PurchaseOrderDetailDto[]
+    ) {
+        const _purchaseOrdersDetailDetail: PurchaseOrderDetailDto[] = [];
+
+        for (let purchaseOrderDetail of purchaseOrdersDetail) {
+            purchaseOrderDetail.purchaseOrderId = purchaseOrderId;
+
+            _purchaseOrdersDetailDetail.push(purchaseOrderDetail);
+        }
+
+        return _purchaseOrdersDetailDetail;
+    }
 
     async getAll(schoolId: number) {
         try {

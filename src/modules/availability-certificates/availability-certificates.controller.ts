@@ -44,10 +44,12 @@ export class AvailabilityCertificatesController {
     async create(
         @Res() res: Response,
         @Body() availabilityCertificateDto: AvailabilityCertificateDto,
-        @User('schoolId') schoolId: number
+        @User('schoolId') schoolId: number,
+        @User('sub') sub: number
     ) {
         try {
             availabilityCertificateDto.schoolId = schoolId;
+            availabilityCertificateDto.elaboratorId = sub;
 
             const availabilityCertificate = await this.availabilityCertificatesService.create(
                 availabilityCertificateDto

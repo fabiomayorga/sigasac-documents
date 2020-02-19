@@ -11,6 +11,7 @@ import {
     AVAILABILITY_CERTIFICATE_DETAIL_REPOSITORY
 } from 'src/config';
 
+import { ApproverReviewerService } from '../approver-reviewer/approver-reviewer.service';
 import { MonthsService } from 'src/modules/months/months.service';
 
 import { AvailabilityCerticateDetail } from './availability-certificates-detail.entity';
@@ -32,10 +33,13 @@ export class AvailabilityCertificatesService {
         private readonly availabilityCerticateDetail: Repository<
             AvailabilityCerticateDetail
         >,
-        private readonly monthsService: MonthsService
+        private readonly monthsService: MonthsService,
+        private readonly approverReviewerService: ApproverReviewerService
     ) {}
 
-    async create(availabilityCertificateDto: AvailabilityCertificateDto) {
+    async create(
+        availabilityCertificateDto: AvailabilityCertificateDto
+    ) {
         try {
             const months = await this.monthsService.getBySchoolId(
                 availabilityCertificateDto.schoolId
@@ -47,10 +51,21 @@ export class AvailabilityCertificatesService {
                 );
             }
 
+            const {
+                approverId,
+                reviewerId
+            } = await this.approverReviewerService.getOnlyActives(
+                availabilityCertificateDto.schoolId
+            );
+
             availabilityCertificateDto.monthId = months[0].id;
+
             availabilityCertificateDto.totalAmount = availabilityCertificateDto.availabilityCertificatesDetail
                 .map(d => d.value)
                 .reduce((acc, cur) => acc + cur);
+
+            availabilityCertificateDto.approverId = approverId;
+            availabilityCertificateDto.reviewerId = reviewerId;
 
             const _availabilityCertificate = this.availabilityCerticate.save(
                 availabilityCertificateDto

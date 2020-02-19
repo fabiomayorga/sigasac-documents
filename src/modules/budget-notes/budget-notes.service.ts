@@ -12,6 +12,7 @@ import {
     BUDGET_NOTE_DETAIL_REPOSITORY
 } from 'src/config';
 
+import { ApproverReviewerService } from '../approver-reviewer/approver-reviewer.service';
 import { MonthsService } from 'src/modules/months/months.service';
 
 import { BudgetNote } from './budget-notes.entity';
@@ -26,7 +27,8 @@ export class BudgetNotesService {
         private readonly budgetNote: Repository<BudgetNote>,
         @Inject(BUDGET_NOTE_DETAIL_REPOSITORY)
         private readonly budgetNoteDetail: Repository<BudgetNotesDetail>,
-        private readonly monthsService: MonthsService
+        private readonly monthsService: MonthsService,
+        private readonly approverReviewerService: ApproverReviewerService
     ) {}
 
     async create(budgetNoteDto: BudgetNoteDto) {
@@ -41,10 +43,21 @@ export class BudgetNotesService {
                 );
             }
 
+            const {
+                approverId,
+                reviewerId
+            } = await this.approverReviewerService.getOnlyActives(
+                budgetNoteDto.schoolId
+            );
+
             budgetNoteDto.monthId = months[0].id;
+
             budgetNoteDto.totalAmount = budgetNoteDto.budgetNotesDetail
                 .map(d => d.value)
                 .reduce((acc, cur) => acc + cur);
+
+            budgetNoteDto.approverId = approverId;
+            budgetNoteDto.reviewerId = reviewerId;
 
             const _budgetNote = await this.budgetNote.save(budgetNoteDto);
 

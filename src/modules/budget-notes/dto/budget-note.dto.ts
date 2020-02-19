@@ -8,6 +8,12 @@ export class BudgetNoteDto {
 
     totalAmount: number;
 
+    approverId: number;
+
+    elaboratorId: number;
+
+    reviewerId: number;
+
     @ApiProperty({ required: false })
     noteDate: string;
 

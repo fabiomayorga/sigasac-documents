@@ -46,10 +46,18 @@ export class ApproverReviewerService {
 
     async getOnlyActives(schoolId: number) {
         try {
-            return this.approverReviewer.find({
-                where: { schoolId, state: 1 },
-                order: { id: 'ASC' }
-            });
+            return {
+                approverId: (
+                    await this.approverReviewer.findOne({
+                        where: { schoolId, state: 1, actionId: 2 }
+                    })
+                ).id,
+                reviewerId: (
+                    await this.approverReviewer.findOne({
+                        where: { schoolId, state: 1, actionId: 1 }
+                    })
+                ).id
+            };
         } catch (error) {
             throw error;
         }

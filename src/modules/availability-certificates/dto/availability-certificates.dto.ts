@@ -8,6 +8,12 @@ export class AvailabilityCertificateDto {
 
     totalAmount: number;
 
+    approverId: number;
+
+    elaboratorId: number;
+
+    reviewerId: number;
+
     @ApiProperty({ required: false })
     certificateDate: string;
 

@@ -27,6 +27,7 @@ import { BudgetNotesService } from './budget-notes.service';
 import { BudgetNoteDto, BudgetNoteDetailDto } from './dto';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from 'src/utils';
+import { userInfo } from 'os';
 
 @Controller(`${APP.baseURL}/budget-notes`)
 @ApiTags(`budget-notes`)
@@ -42,10 +43,12 @@ export class BudgetNotesController {
     async create(
         @Res() res: Response,
         @Body() budgetNoteDto: BudgetNoteDto,
-        @User('schoolId') schoolId: number
+        @User('schoolId') schoolId: number,
+        @User('sub') sub: number
     ) {
         try {
             budgetNoteDto.schoolId = schoolId;
+            budgetNoteDto.elaboratorId = sub;
 
             const budgetNote = await this.budgetNotesService.create(
                 budgetNoteDto

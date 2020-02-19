@@ -9,6 +9,7 @@ import { ApproverReviewerService } from './approver-reviewer.service';
 @Module({
     imports: [DatabaseModule],
     controllers: [ApproverReviewerController],
-    providers: [...ApproverReviewerProvider, ApproverReviewerService]
+    providers: [...ApproverReviewerProvider, ApproverReviewerService],
+    exports: [ApproverReviewerService]
 })
 export class ApproverReviewerModule {}

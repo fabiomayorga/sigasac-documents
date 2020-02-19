@@ -33,7 +33,7 @@ export class AvailabilityCertificatesService {
             AvailabilityCerticateDetail
         >,
         private readonly monthsService: MonthsService
-    ) {}
+    ) { }
 
     async create(availabilityCertificateDto: AvailabilityCertificateDto) {
         try {
@@ -48,6 +48,9 @@ export class AvailabilityCertificatesService {
             }
 
             availabilityCertificateDto.monthId = months[0].id;
+            availabilityCertificateDto.totalAmount = availabilityCertificateDto.availabilityCertificatesDetail
+                .map(d => d.value)
+                .reduce((acc, cur) => acc + cur);
 
             const _availabilityCertificate = this.availabilityCerticate.save(
                 availabilityCertificateDto
@@ -124,6 +127,10 @@ export class AvailabilityCertificatesService {
                         budgetNoteId: _availabilityCertificate.id
                     })
                     .execute();
+
+                _availabilityCertificate.totalAmount = availabilityCertificateDetailDto
+                    .map(d => d.value)
+                    .reduce((acc, cur) => acc + cur);
 
                 await this.availabilityCerticateDetail.save(
                     this.addAvailabilityCertificateIdToAvailabilityCertificateDetail(

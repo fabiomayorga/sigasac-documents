@@ -6,6 +6,8 @@ export class AvailabilityCertificateDto {
 
     monthId: number;
 
+    totalAmount: number;
+
     @ApiProperty({ required: false })
     certificateDate: string;
 

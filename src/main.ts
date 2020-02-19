@@ -1,14 +1,21 @@
 import { NestFactory } from '@nestjs/core';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 import { APP } from './config';
+import { HttpExceptionFilter } from './utils';
 
 import { AppModule } from './app.module';
-import { Logger } from '@nestjs/common';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
 
+    app.useGlobalPipes(new ValidationPipe());
+
+    app.useGlobalFilters(new HttpExceptionFilter());
+
+    app.enableCors();
+    
     const options = new DocumentBuilder()
         .setTitle(`${APP.name}`.toUpperCase())
         .setDescription(`${APP.description}`)

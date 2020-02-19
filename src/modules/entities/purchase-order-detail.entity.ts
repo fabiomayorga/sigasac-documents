@@ -28,6 +28,15 @@ export class PurchaseOrderDetail {
     value: number;
 
     @Column({
+        name: 'availability_certificate_id',
+        type: 'integer',
+        width: 11,
+        unsigned: true,
+        nullable: true
+    })
+    availabilityCerticateId: number;
+
+    @Column({
         name: 'budget_account_id',
         type: 'integer',
         width: 11,

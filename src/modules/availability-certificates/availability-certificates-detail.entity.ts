@@ -121,7 +121,7 @@ export class AvailabilityCerticateDetail {
         project => project.availabilityCerticatesDetail,
         { nullable: true }
     )
-    @JoinColumn({ name: 'revenue_id', referencedColumnName: 'id' })
+    @JoinColumn({ name: 'project_id', referencedColumnName: 'id' })
     public project!: Project;
 
     @ManyToOne(

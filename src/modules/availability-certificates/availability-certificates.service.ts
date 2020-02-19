@@ -14,8 +14,8 @@ import {
 import { ApproverReviewerService } from '../approver-reviewer/approver-reviewer.service';
 import { MonthsService } from 'src/modules/months/months.service';
 
-import { AvailabilityCerticateDetail } from './availability-certificates-detail.entity';
-import { AvailabilityCerticate } from './availability-certificates.entity';
+import { AvailabilityCertificateDetail } from './availability-certificates-detail.entity';
+import { AvailabilityCertificate } from './availability-certificates.entity';
 
 import {
     AvailabilityCertificateDetailDto,
@@ -27,11 +27,11 @@ export class AvailabilityCertificatesService {
     constructor(
         @Inject(AVAILABILITY_CERTIFICATE_REPOSITORY)
         private readonly availabilityCerticate: Repository<
-            AvailabilityCerticate
+            AvailabilityCertificate
         >,
         @Inject(AVAILABILITY_CERTIFICATE_DETAIL_REPOSITORY)
         private readonly availabilityCerticateDetail: Repository<
-            AvailabilityCerticateDetail
+            AvailabilityCertificateDetail
         >,
         private readonly monthsService: MonthsService,
         private readonly approverReviewerService: ApproverReviewerService
@@ -137,7 +137,7 @@ export class AvailabilityCertificatesService {
                 await getConnection()
                     .createQueryBuilder()
                     .delete()
-                    .from(AvailabilityCerticateDetail)
+                    .from(AvailabilityCertificateDetail)
                     .where('budgetNoteId = :budgetNoteId', {
                         budgetNoteId: _availabilityCertificate.id
                     })

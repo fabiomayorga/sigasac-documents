@@ -9,13 +9,13 @@ import {
     UpdateDateColumn
 } from 'typeorm';
 
-import { AvailabilityCerticateDetail } from './availability-certificates-detail.entity';
+import { AvailabilityCertificateDetail } from './availability-certificates-detail.entity';
 import { ApproverReviewer } from '../approver-reviewer/approver-reviewer.entity';
 import { Budget } from 'src/modules/budgets/budgets.entity';
 import { Month } from 'src/modules/months/months.entity';
 
 @Entity({ name: 'availability_certificates' })
-export class AvailabilityCerticate {
+export class AvailabilityCertificate {
     @PrimaryGeneratedColumn('increment', {
         name: 'id',
         type: 'integer',
@@ -114,11 +114,11 @@ export class AvailabilityCerticate {
     public month!: Month;
 
     @OneToMany(
-        type => AvailabilityCerticateDetail,
+        type => AvailabilityCertificateDetail,
         availabilityCerticateDetail =>
             availabilityCerticateDetail.availabilityCerticate
     )
-    public availabilityCerticateDetail!: AvailabilityCerticateDetail[];
+    public availabilityCerticateDetail!: AvailabilityCertificateDetail[];
 
     @ManyToOne(
         type => ApproverReviewer,

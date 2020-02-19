@@ -5,13 +5,13 @@ import {
     AVAILABILITY_CERTIFICATE_REPOSITORY
 } from '../../config';
 
-import { AvailabilityCerticate } from './availability-certificates.entity';
+import { AvailabilityCertificate } from './availability-certificates.entity';
 
 export const AvailabilityCerticateProvider = [
     {
         provide: AVAILABILITY_CERTIFICATE_REPOSITORY,
         useFactory: (connection: Connection) =>
-            connection.getRepository(AvailabilityCerticate),
+            connection.getRepository(AvailabilityCertificate),
         inject: [DATABASE_CONNECTION]
     }
 ];

@@ -8,14 +8,14 @@ import {
     UpdateDateColumn
 } from 'typeorm';
 
-import { AvailabilityCerticate } from './availability-certificates.entity';
+import { AvailabilityCertificate } from './availability-certificates.entity';
 import { BudgetAccount } from '../entities/budget-account.entity';
 import { Campus } from '../entities/campus.entity';
 import { Project } from '../entities/project.entity';
 import { Revenue } from '../entities/revenue.entity';
 
 @Entity({ name: 'availability_certificate_detail' })
-export class AvailabilityCerticateDetail {
+export class AvailabilityCertificateDetail {
     @PrimaryGeneratedColumn('increment', {
         name: 'id',
         type: 'integer',
@@ -90,7 +90,7 @@ export class AvailabilityCerticateDetail {
 
     // relationships
     @ManyToOne(
-        type => AvailabilityCerticate,
+        type => AvailabilityCertificate,
         availabilityCerticate =>
             availabilityCerticate.availabilityCerticateDetail
     )
@@ -98,7 +98,7 @@ export class AvailabilityCerticateDetail {
         name: 'availability_certificate_id',
         referencedColumnName: 'id'
     })
-    public availabilityCerticate!: AvailabilityCerticate;
+    public availabilityCerticate!: AvailabilityCertificate;
 
     @ManyToOne(
         type => BudgetAccount,

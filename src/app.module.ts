@@ -10,6 +10,7 @@ import { AvailabilityCertificatesModule } from './modules/availability-certifica
 import { ApproverReviewerModule } from './modules/approver-reviewer/approver-reviewer.module';
 import { PurchaseOrdersModule } from './modules/purchase-orders/purchase-orders.module';
 import { CertificatesReceivedModule } from './modules/certificates-received/certificates-received.module';
+import { PaymentOrdersModule } from './modules/payment-orders/payment-orders.module';
 
 @Module({
     imports: [
@@ -23,7 +24,8 @@ import { CertificatesReceivedModule } from './modules/certificates-received/cert
         AvailabilityCertificatesModule,
         ApproverReviewerModule,
         PurchaseOrdersModule,
-        CertificatesReceivedModule
+        CertificatesReceivedModule,
+        PaymentOrdersModule
     ],
     controllers: [],
     providers: []

@@ -112,14 +112,13 @@ export class CertificateReceived {
     // relationships
     @OneToMany(
         type => CertificateReceivedDetail,
-        certificateReceivedDetail =>
-            certificateReceivedDetail.certificateReceived
+        certificateReceivedDetail => certificateReceivedDetail.certificateReceived
     )
     public certificatesReceivedDetail!: CertificateReceivedDetail[];
 
     @ManyToOne(
         type => Month,
-        month => month.purchaseOrders
+        month => month.certificateReceived
     )
     @JoinColumn({ name: 'month_id', referencedColumnName: 'id' })
     public month!: Month;
@@ -137,6 +136,13 @@ export class CertificateReceived {
     )
     @JoinColumn({ name: 'reviewer_id', referencedColumnName: 'id' })
     public reviewer!: ApproverReviewer;
+
+    @ManyToOne(
+        type => ThirdParty,
+        thirdParty => thirdParty.purchaseOrders
+    )
+    @JoinColumn({ name: 'third_party_id', referencedColumnName: 'id' })
+    public thirdParty!: ThirdParty;
 
     // @ManyToOne(
     //     type => User,

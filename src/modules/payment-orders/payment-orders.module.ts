@@ -8,8 +8,8 @@ import { PaymentOrdersController } from './payment-orders.controller';
 import { PaymentOrdersService } from './payment-orders.service';
 
 @Module({
-  imports: [DatabaseModule, ApproverReviewerModule, MonthsModule],
-  controllers: [PaymentOrdersController],
-  providers: [PaymentOrdersService]
+    imports: [DatabaseModule, ApproverReviewerModule, MonthsModule],
+    controllers: [PaymentOrdersController],
+    providers: [PaymentOrdersService]
 })
 export class PaymentOrdersModule {}

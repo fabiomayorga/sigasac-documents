@@ -7,11 +7,10 @@ import {
     PrimaryGeneratedColumn
 } from 'typeorm';
 
-import { PurchaseOrder } from './purchase-order.entity';
-import { Revenue } from './revenue.entity';
+import { CertificateReceived } from './certificate-received.entity';
 import { BudgetAccount } from './budget-account.entity';
-import { AvailabilityCertificate } from '../availability-certificates/availability-certificates.entity';
 import { PaymentOrder } from './payment-order.entity';
+import { Revenue } from './revenue.entity';
 
 @Entity({ name: 'payment_orders_detail' })
 export class PaymentOrderDetail {
@@ -29,6 +28,9 @@ export class PaymentOrderDetail {
     })
     value: number;
 
+    @Column({ name: 'observations', type: 'varchar', nullable: true })
+    observations: string;
+
     @Column({
         name: 'budget_account_id',
         type: 'integer',
@@ -39,13 +41,13 @@ export class PaymentOrderDetail {
     budgetAccountId: number;
 
     @Column({
-        name: 'purchase_order_id',
+        name: 'certificate_received_id',
         type: 'integer',
         width: 11,
         unsigned: true,
         nullable: true
     })
-    purchaseOrderId: number;
+    certificateReceivedId: number;
 
     @Column({
         name: 'revenue_id',
@@ -58,15 +60,15 @@ export class PaymentOrderDetail {
 
     // relationships
     @ManyToOne(
-        type => PurchaseOrder,
-        purchaseOrder => purchaseOrder.paymentOrdersDetail,
+        type => CertificateReceived,
+        certificateReceived => certificateReceived.paymentOrdersDetail,
         { nullable: true }
     )
     @JoinColumn({
-        name: 'purchase_order_id',
+        name: 'certificate_received_id',
         referencedColumnName: 'id'
     })
-    public purchaseOrder!: PurchaseOrder;
+    public certificateReceived!: CertificateReceived;
 
     @ManyToOne(
         type => BudgetAccount,

@@ -13,6 +13,7 @@ import { ApproverReviewer } from '../approver-reviewer/approver-reviewer.entity'
 import { CertificateReceivedDetail } from './certificate-received-detail.entity';
 import { Month } from 'src/modules/months/months.entity';
 import { ThirdParty } from './third-party.entity';
+import { PaymentOrderDetail } from './payment-order-detail.entity';
 
 @Entity({ name: 'certificates_received' })
 export class CertificateReceived {
@@ -117,6 +118,13 @@ export class CertificateReceived {
             certificateReceivedDetail.certificateReceived
     )
     public certificatesReceivedDetail!: CertificateReceivedDetail[];
+
+    @OneToMany(
+        type => PaymentOrderDetail,
+        paymentOrdersDetail =>
+        paymentOrdersDetail.certificateReceived
+    )
+    public paymentOrdersDetail!: PaymentOrderDetail[];
 
     @ManyToOne(
         type => Month,

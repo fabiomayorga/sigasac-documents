@@ -10,6 +10,7 @@ import {
 import { AvailabilityCertificateDetail } from '../availability-certificates/availability-certificates-detail.entity';
 import { PurchaseOrderDetail } from './purchase-order-detail.entity';
 import { CertificateReceivedDetail } from './certificate-received-detail.entity';
+import { PaymentOrderDetail } from './payment-order-detail.entity';
 
 @Entity({ name: 'budget_accounts' })
 export class BudgetAccount {
@@ -61,4 +62,10 @@ export class BudgetAccount {
         purchaseOrderDetail => purchaseOrderDetail.budgetAccount
     )
     public purchaseOrdersDetail!: PurchaseOrderDetail[];
+
+    @OneToMany(
+        type => PaymentOrderDetail,
+        paymentOrdersDetail => paymentOrdersDetail.budgetAccount
+    )
+    public paymentOrdersDetail!: PaymentOrderDetail[];
 }

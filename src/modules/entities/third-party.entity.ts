@@ -11,6 +11,7 @@ import {
 
 import { CertificateReceived } from './certificate-received.entity';
 import { PurchaseOrder } from './purchase-order.entity';
+import { PaymentOrder } from './payment-order.entity';
 
 @Entity({ name: 'third_parties' })
 export class ThirdParty {
@@ -158,4 +159,10 @@ export class ThirdParty {
         certificateReceived => certificateReceived.thirdParty
     )
     public certificateReceived!: CertificateReceived[];
+
+    @OneToMany(
+        type => PaymentOrder,
+        paymentOrder => paymentOrder.thirdParty
+    )
+    public paymentOrder!: PaymentOrder[];
 }

@@ -12,6 +12,7 @@ import { ModificationRequest } from 'src/modules/modification-request/modificati
 import { State } from 'src/modules/states/states.entity';
 import { PurchaseOrder } from '../entities/purchase-order.entity';
 import { CertificateReceived } from '../entities/certificate-received.entity';
+import { PaymentOrder } from '../entities/payment-order.entity';
 
 @Entity({ name: 'months' })
 export class Month {
@@ -64,6 +65,13 @@ export class Month {
         { nullable: true }
     )
     public certificateReceived!: CertificateReceived[];
+
+    @OneToMany(
+        type => PaymentOrder,
+        paymentOrder => paymentOrder.month,
+        { nullable: true }
+    )
+    public paymentOrder!: PaymentOrder[];
 
     @ManyToOne(
         type => State,

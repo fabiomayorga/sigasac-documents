@@ -11,12 +11,11 @@ import {
 
 import { ApproverReviewer } from '../approver-reviewer/approver-reviewer.entity';
 import { Month } from 'src/modules/months/months.entity';
-import { PurchaseOrderDetail } from './purchase-order-detail.entity';
-import { ThirdParty } from './third-party.entity';
 import { PaymentOrderDetail } from './payment-order-detail.entity';
+import { ThirdParty } from './third-party.entity';
 
-@Entity({ name: 'purchase_orders' })
-export class PurchaseOrder {
+@Entity({ name: 'payment_orders' })
+export class PaymentOrder {
     @PrimaryGeneratedColumn('increment', {
         name: 'id',
         type: 'integer',
@@ -113,41 +112,35 @@ export class PurchaseOrder {
 
     // relationships
     @OneToMany(
-        type => PurchaseOrderDetail,
-        purchaseOrderDetail => purchaseOrderDetail.purchaseOrder
-    )
-    public purchaseOrdersDetail!: PurchaseOrderDetail[];
-
-    @OneToMany(
         type => PaymentOrderDetail,
-        paymentOrderDetail => paymentOrderDetail.purchaseOrder
+        paymentOrderDetail => paymentOrderDetail.paymentOrder
     )
     public paymentOrdersDetail!: PaymentOrderDetail[];
 
     @ManyToOne(
         type => Month,
-        month => month.purchaseOrders
+        month => month.paymentOrder
     )
     @JoinColumn({ name: 'month_id', referencedColumnName: 'id' })
     public month!: Month;
 
     @ManyToOne(
         type => ApproverReviewer,
-        approver => approver.purchaseOrders
+        approver => approver.paymentOrder
     )
     @JoinColumn({ name: 'approver_id', referencedColumnName: 'id' })
     public approver!: ApproverReviewer;
 
     @ManyToOne(
         type => ApproverReviewer,
-        reviewer => reviewer.purchaseOrders
+        reviewer => reviewer.paymentOrder
     )
     @JoinColumn({ name: 'reviewer_id', referencedColumnName: 'id' })
     public reviewer!: ApproverReviewer;
 
     @ManyToOne(
         type => ThirdParty,
-        thirdParty => thirdParty.purchaseOrders
+        thirdParty => thirdParty.paymentOrder
     )
     @JoinColumn({ name: 'third_party_id', referencedColumnName: 'id' })
     public thirdParty!: ThirdParty;

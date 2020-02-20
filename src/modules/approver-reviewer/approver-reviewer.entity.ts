@@ -14,6 +14,7 @@ import { AvailabilityCertificate } from '../availability-certificates/availabili
 import { BudgetNote } from '../budget-notes/budget-notes.entity';
 import { PurchaseOrder } from '../entities/purchase-order.entity';
 import { CertificateReceived } from '../entities/certificate-received.entity';
+import { PaymentOrder } from '../entities/payment-order.entity';
 
 @Entity({ name: 'approvers_reviewers' })
 export class ApproverReviewer {
@@ -98,4 +99,12 @@ export class ApproverReviewer {
         }
     )
     public certificateReceived!: CertificateReceived[];
+
+    @OneToMany(
+        type => CertificateReceived,
+        paymentOrder => {
+            paymentOrder.approver, paymentOrder.reviewer;
+        }
+    )
+    public paymentOrder!: PaymentOrder[];
 }

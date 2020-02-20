@@ -8,8 +8,9 @@ import {
     PrimaryGeneratedColumn,
     UpdateDateColumn
 } from 'typeorm';
-import { PurchaseOrder } from './purchase-order.entity';
+
 import { CertificateReceived } from './certificate-received.entity';
+import { PurchaseOrder } from './purchase-order.entity';
 
 @Entity({ name: 'third_parties' })
 export class ThirdParty {

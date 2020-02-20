@@ -137,8 +137,7 @@ export class AvailabilityCertificate {
 
     @OneToMany(
         type => PurchaseOrderDetail,
-        purchaseOrderDetail =>
-        purchaseOrderDetail.availabilityCertificate
+        purchaseOrderDetail => purchaseOrderDetail.availabilityCertificate
     )
     public purchaseOrdersDetail!: PurchaseOrderDetail[];
 

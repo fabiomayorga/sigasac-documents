@@ -113,7 +113,8 @@ export class CertificateReceived {
     // relationships
     @OneToMany(
         type => CertificateReceivedDetail,
-        certificateReceivedDetail => certificateReceivedDetail.certificateReceived
+        certificateReceivedDetail =>
+            certificateReceivedDetail.certificateReceived
     )
     public certificatesReceivedDetail!: CertificateReceivedDetail[];
 

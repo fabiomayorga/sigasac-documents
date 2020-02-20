@@ -9,6 +9,7 @@ import {
     UpdateDateColumn
 } from 'typeorm';
 import { PurchaseOrder } from './purchase-order.entity';
+import { CertificateReceived } from './certificate-received.entity';
 
 @Entity({ name: 'third_parties' })
 export class ThirdParty {
@@ -150,4 +151,10 @@ export class ThirdParty {
         purchaseOrder => purchaseOrder.thirdParty
     )
     public purchaseOrders!: PurchaseOrder[];
+
+    @OneToMany(
+        type => CertificateReceived,
+        certificateReceived => certificateReceived.thirdParty
+    )
+    public certificateReceived!: CertificateReceived[];
 }

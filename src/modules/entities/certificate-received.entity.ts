@@ -12,6 +12,7 @@ import {
 import { ApproverReviewer } from '../approver-reviewer/approver-reviewer.entity';
 import { CertificateReceivedDetail } from './certificate-received-detail.entity';
 import { Month } from 'src/modules/months/months.entity';
+import { ThirdParty } from './third-party.entity';
 
 @Entity({ name: 'certificates_received' })
 export class CertificateReceived {
@@ -139,7 +140,7 @@ export class CertificateReceived {
 
     @ManyToOne(
         type => ThirdParty,
-        thirdParty => thirdParty.purchaseOrders
+        thirdParty => thirdParty.certificateReceived
     )
     @JoinColumn({ name: 'third_party_id', referencedColumnName: 'id' })
     public thirdParty!: ThirdParty;

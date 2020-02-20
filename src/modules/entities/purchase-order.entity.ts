@@ -10,10 +10,10 @@ import {
 } from 'typeorm';
 
 import { ApproverReviewer } from '../approver-reviewer/approver-reviewer.entity';
+import { CertificateReceivedDetail } from './certificate-received-detail.entity';
 import { Month } from 'src/modules/months/months.entity';
 import { PurchaseOrderDetail } from './purchase-order-detail.entity';
 import { ThirdParty } from './third-party.entity';
-import { PaymentOrderDetail } from './payment-order-detail.entity';
 
 @Entity({ name: 'purchase_orders' })
 export class PurchaseOrder {
@@ -119,10 +119,10 @@ export class PurchaseOrder {
     public purchaseOrdersDetail!: PurchaseOrderDetail[];
 
     @OneToMany(
-        type => PaymentOrderDetail,
-        paymentOrderDetail => paymentOrderDetail.purchaseOrder
+        type => CertificateReceivedDetail,
+        certificatesReceivedDetail => certificatesReceivedDetail.purchaseOrder
     )
-    public paymentOrdersDetail!: PaymentOrderDetail[];
+    public certificatesReceivedDetail!: CertificateReceivedDetail[];
 
     @ManyToOne(
         type => Month,

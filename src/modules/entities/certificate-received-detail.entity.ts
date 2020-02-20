@@ -7,9 +7,10 @@ import {
     PrimaryGeneratedColumn
 } from 'typeorm';
 
-import { CertificateReceived } from './certificate-received.entity';
 import { BudgetAccount } from './budget-account.entity';
+import { CertificateReceived } from './certificate-received.entity';
 import { Revenue } from './revenue.entity';
+import { PurchaseOrder } from './purchase-order.entity';
 
 @Entity({ name: 'certificates_received_detail' })
 export class CertificateReceivedDetail {
@@ -55,6 +56,15 @@ export class CertificateReceivedDetail {
     })
     revenueId: number;
 
+    @Column({
+        name: 'purchase_order_id',
+        type: 'integer',
+        width: 11,
+        unsigned: true,
+        nullable: true
+    })
+    purchaseOrderId: number;
+
     // relationships
     @ManyToOne(
         type => BudgetAccount,
@@ -78,4 +88,12 @@ export class CertificateReceivedDetail {
     )
     @JoinColumn({ name: 'revenue_id', referencedColumnName: 'id' })
     public revenue!: Revenue;
+
+    @ManyToOne(
+        type => PurchaseOrder,
+        purchaseOrder => purchaseOrder.certificatesReceivedDetail,
+        { nullable: true }
+    )
+    @JoinColumn({ name: 'revenue_id', referencedColumnName: 'id' })
+    public purchaseOrder!: PurchaseOrder;
 }

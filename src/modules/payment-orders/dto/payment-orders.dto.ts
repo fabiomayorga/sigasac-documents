@@ -39,5 +39,5 @@ export class PaymentOrderDto {
             }
         ]
     })
-    purchaseOrdersDetailDto: PaymentOrderDetailDto[];
+    paymentOrderDetailDto: PaymentOrderDetailDto[];
 }

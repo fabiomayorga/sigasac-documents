@@ -22,19 +22,12 @@ export class CertificateReceivedDetail {
 
     @Column({
         name: 'value',
-        type: 'double precision',
-        unsigned: true
+        type: 'double precision'
     })
     value: number;
 
-    @Column({
-        name: 'availability_certificate_id',
-        type: 'integer',
-        width: 11,
-        unsigned: true,
-        nullable: true
-    })
-    availabilityCerticateId: number;
+    @Column({ name: 'observations', type: 'varchar', nullable: true })
+    observations: string;
 
     @Column({
         name: 'budget_account_id',
@@ -46,13 +39,12 @@ export class CertificateReceivedDetail {
     budgetAccountId: number;
 
     @Column({
-        name: 'purchase_order_id',
+        name: 'certificate_received_id',
         type: 'integer',
         width: 11,
-        unsigned: true,
-        nullable: true
+        unsigned: true
     })
-    purchaseOrderId: number;
+    certificateReceivedId: number;
 
     @Column({
         name: 'revenue_id',
@@ -66,7 +58,7 @@ export class CertificateReceivedDetail {
     // relationships
     @ManyToOne(
         type => BudgetAccount,
-        budgetAccount => budgetAccount.purchaseOrdersDetail,
+        budgetAccount => budgetAccount.certificatesReceivedDetail,
         { nullable: true }
     )
     @JoinColumn({ name: 'budget_account_id', referencedColumnName: 'id' })
@@ -76,12 +68,12 @@ export class CertificateReceivedDetail {
         type => CertificateReceived,
         certificateReceived => certificateReceived.certificatesReceivedDetail
     )
-    @JoinColumn({ name: 'purchase_order_id', referencedColumnName: 'id' })
+    @JoinColumn({ name: 'certificate_received_id', referencedColumnName: 'id' })
     public certificateReceived!: CertificateReceived;
 
     @ManyToOne(
         type => Revenue,
-        revenue => revenue.purchaseOrdersDetail,
+        revenue => revenue.certificatesReceivedDetail,
         { nullable: true }
     )
     @JoinColumn({ name: 'revenue_id', referencedColumnName: 'id' })

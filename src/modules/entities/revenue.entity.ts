@@ -9,6 +9,7 @@ import {
 
 import { AvailabilityCertificateDetail } from '../availability-certificates/availability-certificates-detail.entity';
 import { BudgetNotesDetail } from '../budget-notes/budget-notes-detail.entity';
+import { CertificateReceivedDetail } from './certificate-received-detail.entity';
 import { PurchaseOrderDetail } from './purchase-order-detail.entity';
 
 @Entity({ name: 'revenues' })
@@ -34,16 +35,22 @@ export class Revenue {
 
     // relationships
     @OneToMany(
+        type => AvailabilityCertificateDetail,
+        availabilityCerticateDetail => availabilityCerticateDetail.revenue
+    )
+    public availabilityCerticatesDetail!: AvailabilityCertificateDetail[];
+
+    @OneToMany(
         type => BudgetNotesDetail,
         budgetNotesDetail => budgetNotesDetail.revenue
     )
     public budgetNotesDetail!: BudgetNotesDetail[];
 
     @OneToMany(
-        type => AvailabilityCertificateDetail,
-        availabilityCerticateDetail => availabilityCerticateDetail.revenue
+        type => CertificateReceivedDetail,
+        certificatesReceivedDetail => certificatesReceivedDetail.budgetAccount
     )
-    public availabilityCerticatesDetail!: AvailabilityCertificateDetail[];
+    public certificatesReceivedDetail!: CertificateReceivedDetail[];
 
     @OneToMany(
         type => PurchaseOrderDetail,

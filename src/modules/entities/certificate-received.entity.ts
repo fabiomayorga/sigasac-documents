@@ -121,8 +121,7 @@ export class CertificateReceived {
 
     @OneToMany(
         type => PaymentOrderDetail,
-        paymentOrdersDetail =>
-        paymentOrdersDetail.certificateReceived
+        paymentOrdersDetail => paymentOrdersDetail.certificateReceived
     )
     public paymentOrdersDetail!: PaymentOrderDetail[];
 

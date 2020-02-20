@@ -14,4 +14,7 @@ export class CertificateReceivedDetailDto {
 
     @ApiProperty({ required: false })
     budgetAccountId: number;
+
+    @ApiProperty({ required: false })
+    purchaseOrderId: number;
 }

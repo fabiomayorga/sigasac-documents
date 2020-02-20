@@ -35,7 +35,8 @@ export class CertificateReceivedDto {
                 value: 0,
                 budgetAccountId: 0,
                 revenueId: 0,
-                availabilityCerticateId: 0
+                observations: '',
+                purchaseOrderId: 0
             }
         ]
     })

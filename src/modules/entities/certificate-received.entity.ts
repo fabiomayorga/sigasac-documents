@@ -125,14 +125,14 @@ export class CertificateReceived {
 
     @ManyToOne(
         type => ApproverReviewer,
-        approver => approver.purchaseOrders
+        approver => approver.certificateReceived
     )
     @JoinColumn({ name: 'approver_id', referencedColumnName: 'id' })
     public approver!: ApproverReviewer;
 
     @ManyToOne(
         type => ApproverReviewer,
-        reviewer => reviewer.purchaseOrders
+        reviewer => reviewer.certificateReceived
     )
     @JoinColumn({ name: 'reviewer_id', referencedColumnName: 'id' })
     public reviewer!: ApproverReviewer;

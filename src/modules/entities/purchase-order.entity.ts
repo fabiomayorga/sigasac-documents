@@ -30,6 +30,19 @@ export class PurchaseOrder {
     })
     dateElaboration: Date;
 
+    @Column({
+        name: 'code',
+        type: 'varchar',
+        length: 100
+    })
+    code: string;
+
+    @Column({
+        name: 'observations',
+        type: 'varchar'
+    })
+    observations: string;
+
     @Column({ name: 'concept', type: 'varchar', nullable: true })
     concept: string;
 

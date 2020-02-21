@@ -21,11 +21,17 @@ export class PurchaseOrderDto {
     @ApiProperty()
     dateElaboration: Date;
 
-    @ApiProperty()
+    @ApiProperty({ required: false })
     concept: string;
 
-    @ApiProperty()
+    @ApiProperty({ required: false })
     detail: string;
+
+    @ApiProperty({ required: false })
+    observations: string;
+
+    @ApiProperty({ required: false })
+    code: string;
 
     @ApiProperty({
         type: PurchaseOrderDetailDto,

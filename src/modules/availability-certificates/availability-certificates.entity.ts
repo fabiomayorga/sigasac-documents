@@ -32,6 +32,12 @@ export class AvailabilityCertificate {
     code: string;
 
     @Column({
+        name: 'observations',
+        type: 'varchar'
+    })
+    observations: string;
+
+    @Column({
         name: 'certificate_date',
         type: 'date'
     })

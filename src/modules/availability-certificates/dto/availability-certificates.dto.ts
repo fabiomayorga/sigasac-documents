@@ -21,6 +21,9 @@ export class AvailabilityCertificateDto {
     concept: string;
 
     @ApiProperty({ required: false })
+    observations: string;
+
+    @ApiProperty({ required: false })
     code: string;
 
     @ApiProperty({ required: false })

@@ -27,9 +27,6 @@ export class CertificateReceivedDetail {
     })
     value: number;
 
-    @Column({ name: 'observations', type: 'varchar', nullable: true })
-    observations: string;
-
     @Column({
         name: 'budget_account_id',
         type: 'integer',

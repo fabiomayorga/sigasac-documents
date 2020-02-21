@@ -7,9 +7,6 @@ export class CertificateReceivedDetailDto {
     value: number;
 
     @ApiProperty({ required: false })
-    observations: string;
-
-    @ApiProperty({ required: false })
     revenueId: number;
 
     @ApiProperty({ required: false })

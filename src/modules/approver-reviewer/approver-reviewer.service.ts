@@ -78,7 +78,7 @@ export class ApproverReviewerService {
                     })
                     .where('schoolId = :schoolId', { schoolId })
                     .andWhere('actionId = :actionId', {
-                        actionId: _approverReviewer.id
+                        actionId: _approverReviewer.actionId
                     })
                     .execute();
 

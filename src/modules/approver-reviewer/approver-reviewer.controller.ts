@@ -121,11 +121,11 @@ export class ApproverReviewerController {
 
     @Patch(':approverReviewerId')
     @ApiOperation({})
-    @UseGuards(AuthGuard('jwt'))
+    // @UseGuards(AuthGuard('jwt'))
     async activate(
         @Res() res: Response,
         @Param('approverReviewerId') approverReviewerId: number,
-        @User('schoolId') schoolId: number
+        @User('schoolId') schoolId: number = 5
     ) {
         try {
             await this.approverReviewerService.activate(

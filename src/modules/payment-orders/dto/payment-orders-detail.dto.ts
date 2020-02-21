@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class PaymentOrderDetailDto {
-    certificateReceivedId: number;
+    paymentOrderId: number;
 
     @ApiProperty({ required: false })
     value: number;

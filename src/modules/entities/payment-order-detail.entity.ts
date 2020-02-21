@@ -28,9 +28,6 @@ export class PaymentOrderDetail {
     })
     value: number;
 
-    @Column({ name: 'observations', type: 'varchar', nullable: true })
-    observations: string;
-
     @Column({
         name: 'budget_account_id',
         type: 'integer',
@@ -48,6 +45,15 @@ export class PaymentOrderDetail {
         nullable: true
     })
     certificateReceivedId: number;
+
+    @Column({
+        name: 'payment_order_id',
+        type: 'integer',
+        width: 11,
+        unsigned: true,
+        nullable: true
+    })
+    paymentOrderId: number;
 
     @Column({
         name: 'revenue_id',

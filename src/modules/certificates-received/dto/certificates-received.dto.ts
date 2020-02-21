@@ -27,6 +27,12 @@ export class CertificateReceivedDto {
     @ApiProperty({ required: false })
     detail: string;
 
+    @ApiProperty({ required: false })
+    observations: string;
+
+    @ApiProperty({ required: false })
+    code: string;
+
     @ApiProperty({
         type: CertificateReceivedDetailDto,
         required: true,

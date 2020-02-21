@@ -18,6 +18,7 @@ import { AvailabilityCertificatesService } from './availability-certificates.ser
         ...AvailabilityCerticateDeatilProvider,
         ...AvailabilityCerticateProvider,
         AvailabilityCertificatesService
-    ]
+    ],
+    exports: [AvailabilityCertificatesService]
 })
 export class AvailabilityCertificatesModule {}

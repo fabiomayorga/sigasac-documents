@@ -175,4 +175,20 @@ export class AvailabilityCertificatesService {
             throw error;
         }
     }
+
+    async getById(id: number) {
+        try {
+            return this.availabilityCerticate.findOne(id);
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async saveOrUpdate(av: AvailabilityCertificate) {
+        try {
+            return this.availabilityCerticate.save(av);
+        } catch (error) {
+            throw error;
+        }
+    }
 }

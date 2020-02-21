@@ -12,6 +12,7 @@ import { PurchaseOrderDto, PurchaseOrderDetailDto } from './dto';
 
 import { ApproverReviewerService } from '../approver-reviewer/approver-reviewer.service';
 import { MonthsService } from 'src/modules/months/months.service';
+import { AvailabilityCertificatesService } from '../availability-certificates/availability-certificates.service';
 
 @Injectable()
 export class PurchaseOrdersService {
@@ -21,7 +22,8 @@ export class PurchaseOrdersService {
         @Inject(PURCHASE_ORDER_REPOSITORY)
         private readonly purchaseOrder: Repository<PurchaseOrder>,
         private readonly monthsService: MonthsService,
-        private readonly approverReviewerService: ApproverReviewerService
+        private readonly approverReviewerService: ApproverReviewerService,
+        private readonly availabilityCertificatesService: AvailabilityCertificatesService
     ) {}
 
     async create(purchaseOrderDto: PurchaseOrderDto) {
@@ -62,6 +64,20 @@ export class PurchaseOrdersService {
                     purchaseOrderDto.purchaseOrdersDetailDto
                 )
             );
+
+            // TODO comprobar que el monto del detalle no exceda el total del cdp
+
+            // descontar certificados de disponibilidad
+            for (const detail of purchaseOrderDto.purchaseOrdersDetailDto) {
+                const av = await this.availabilityCertificatesService.getById(
+                    detail.availabilityCerticateId
+                );
+
+                if (av) {
+                    av.totalAmount = av.totalAmount - detail.value;
+                    await this.availabilityCertificatesService.saveOrUpdate(av);
+                }
+            }
         } catch (error) {
             throw error;
         }

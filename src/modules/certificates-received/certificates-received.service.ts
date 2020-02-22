@@ -91,6 +91,24 @@ export class CertificatesReceivedService {
         }
     }
 
+    async getAllByThirdParty(schoolId: number, thirdPartyId: number) {
+        try {
+            return this.certificateReceived
+                .createQueryBuilder('cr')
+                .leftJoinAndSelect('cr.month', 'month')
+                .leftJoinAndSelect('cr.approver', 'approver')
+                .leftJoinAndSelect('cr.reviewer', 'reviewer')
+                .leftJoinAndSelect('cr.thirdParty', 'tp')
+                .leftJoinAndSelect('cr.certificatesReceivedDetail', 'crd')
+                .leftJoinAndSelect('cr.PaymentOrderDetail', 'pod')
+                .where('cr.schoolId = :schoolId', { schoolId })
+                .andWhere('cr.thirdPartyId = :thirdPartyId', { thirdPartyId })
+                .getMany();
+        } catch (error) {
+            throw error;
+        }
+    }
+
     async nullyfy(schoolId: number, id: number) {
         try {
             const _certificateReceived = await this.certificateReceived.findOne(

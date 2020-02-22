@@ -110,6 +110,31 @@ export class PurchaseOrdersService {
         }
     }
 
+    async getAllByThirdParty(schoolId: number, thirdPartyId: number) {
+        try {
+            return (
+                this.purchaseOrder
+                    .createQueryBuilder('order')
+                    .leftJoinAndSelect('order.month', 'month')
+                    .leftJoinAndSelect('order.thirdParty', 'thirdParty')
+                    .leftJoinAndSelect('order.approver', 'approver')
+                    .leftJoinAndSelect('order.reviewer', 'reviewer')
+                    // .leftJoinAndSelect('order.elaborator', 'elaborator')
+                    .leftJoinAndSelect('order.purchaseOrdersDetail', 'detail')
+                    .leftJoinAndSelect('detail.availabilityCerticate', 'ac')
+                    .leftJoinAndSelect('detail.budgetAccount', 'ba')
+                    .leftJoinAndSelect('detail.revenue', 'r')
+                    .where('order.schoolId = :schoolId', { schoolId })
+                    .andWhere('order.thirdPartyId = :thirdPartyId', {
+                        thirdPartyId
+                    })
+                    .getMany()
+            );
+        } catch (error) {
+            throw error;
+        }
+    }
+
     async nullyfy(schoolId: number, id: number) {
         try {
             const _purchaseOrder = await this.purchaseOrder.findOne({

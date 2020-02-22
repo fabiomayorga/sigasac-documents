@@ -110,6 +110,42 @@ export class CertificatesReceivedController {
         }
     }
 
+    @Get(':thirdPartyId')
+    @ApiOperation({
+        summary: 'listar por terceros',
+        description:
+            'Listado de certificados de recibido pertenecientes a un colegio'
+    })
+    @UseGuards(AuthGuard('jwt'), RolesGuard)
+    // @Roles(SUPER_ADMIN, SUPER_ADMIN_SCHOOL, CONTADOR, AUX_CONTADOR)
+    async getByThirdParty(
+        @Res() res: Response,
+        @Param('thirdPartyId') thirdPartyId: number,
+        @User('schoolId') schoolId: number
+    ) {
+        try {
+            const certificatesReceived = await this.certificatesReceivedService.getAllByThirdParty(
+                schoolId,
+                thirdPartyId
+            );
+
+            res.status(HttpStatus.OK).send({
+                certificatesReceived
+            });
+        } catch (error) {
+            if (error.message.statusCode) {
+                return res.status(error.message.statusCode).send({
+                    message: error.message
+                });
+            }
+
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
+                message: error.message,
+                stack: error.stack
+            });
+        }
+    }
+
     @Patch(':certificateReceivedId')
     @ApiOperation({
         summary: 'anular',

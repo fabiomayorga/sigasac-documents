@@ -84,12 +84,12 @@ export class AvailabilityCertificatesController {
         summary: 'listar',
         description: 'listado de cdp pertenecientes a un colegio'
     })
-    // @UseGuards(AuthGuard('jwt'))
+    @UseGuards(AuthGuard('jwt'))
     async getAll(
         @Res() res: Response,
         @Query()
         availabilityCertificateParamsDto: AvailabilityCertificateParamsDto,
-        @User('schoolId') schoolId: number = 5
+        @User('schoolId') schoolId: number
     ) {
         try {
             const availabilityCertificates = await this.availabilityCertificatesService.getAll(

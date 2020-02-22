@@ -48,6 +48,13 @@ export class PaymentOrder {
     @Column({ name: 'detail', type: 'varchar', nullable: true })
     detail: string;
 
+    @Column({
+        name: 'total_amount',
+        type: 'double precision',
+        unsigned: true
+    })
+    totalAmount: number;
+
     @Column({ name: 'state', type: 'smallint', default: 1 })
     state: number;
 

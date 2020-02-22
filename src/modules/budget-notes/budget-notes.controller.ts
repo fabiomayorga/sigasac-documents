@@ -74,7 +74,7 @@ export class BudgetNotesController {
     @Get()
     @ApiOperation({})
     @UseGuards(AuthGuard('jwt'))
-    async getAll(@Res() res: Response, @User('schoolId') schoolId: number = 5) {
+    async getAll(@Res() res: Response, @User('schoolId') schoolId: number) {
         try {
             const budgetNotes = await this.budgetNotesService.getAll(schoolId);
 

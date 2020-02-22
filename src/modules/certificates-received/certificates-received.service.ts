@@ -51,7 +51,16 @@ export class CertificatesReceivedService {
 
     async getAll(schoolId: number) {
         try {
-            return this.certificateReceived.find({ where: { schoolId } });
+            return this.certificateReceived
+                .createQueryBuilder('cr')
+                .leftJoinAndSelect('cr.month', 'month')
+                .leftJoinAndSelect('cr.approver', 'approver')
+                .leftJoinAndSelect('cr.reviewer', 'reviewer')
+                .leftJoinAndSelect('cr.thirdParty', 'tp')
+                .leftJoinAndSelect('cr.certificatesReceivedDetail', 'crd')
+                .leftJoinAndSelect('cr.PaymentOrderDetail', 'pod')
+                .where('cr.schoolId = :schoolId', { schoolId })
+                .getMany();
         } catch (error) {
             throw error;
         }

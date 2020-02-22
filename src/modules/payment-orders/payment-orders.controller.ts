@@ -32,9 +32,7 @@ import { PaymentOrderDto } from './dto';
 @ApiTags(`Payment Orders`)
 @ApiBearerAuth()
 export class PaymentOrdersController {
-    constructor(
-        private readonly paymentOrdersService: PaymentOrdersService
-    ) {}
+    constructor(private readonly paymentOrdersService: PaymentOrdersService) {}
 
     @Post()
     @ApiBody({ type: PaymentOrderDto })

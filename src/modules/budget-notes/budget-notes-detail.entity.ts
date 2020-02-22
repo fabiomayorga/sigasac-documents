@@ -13,6 +13,7 @@ import { BudgetNote } from 'src/modules/budget-notes/budget-notes.entity';
 import { Project } from '../entities/project.entity';
 import { Revenue } from '../entities/revenue.entity';
 import { SingleAccountPlan } from '../entities/single-account-plan.entity';
+import { BudgetAccount } from '../entities/budget-account.entity';
 
 @Entity()
 export class BudgetNotesDetail {
@@ -39,13 +40,13 @@ export class BudgetNotesDetail {
     budgetNoteId: number;
 
     @Column({
-        name: 'single_account_plan_id',
+        name: 'budget_account_id',
         type: 'integer',
         width: 11,
         unsigned: true,
         nullable: true
     })
-    singleAccountPlanId: number;
+    budgetAccountId: number;
 
     @Column({
         name: 'campus_id',
@@ -121,10 +122,10 @@ export class BudgetNotesDetail {
     public revenue!: Revenue;
 
     @ManyToOne(
-        type => SingleAccountPlan,
-        singleAccountPlan => singleAccountPlan.budgetNotesDetail,
+        type => BudgetAccount,
+        budgetAccount => budgetAccount.budgetNotesDetail,
         { nullable: true }
     )
-    @JoinColumn({ name: 'single_account_plan_id', referencedColumnName: 'id' })
-    public singleAccountPlan!: SingleAccountPlan;
+    @JoinColumn({ name: 'budget_account_id', referencedColumnName: 'id' })
+    public budgetAccount!: BudgetAccount;
 }

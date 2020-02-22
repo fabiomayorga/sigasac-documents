@@ -26,7 +26,7 @@ export class BudgetNoteDto {
         example: [
             {
                 value: 0,
-                singleAccountPlanId: 0,
+                budgetAccountId: 0,
                 campusId: 0,
                 revenueId: 0,
                 projectId: 0

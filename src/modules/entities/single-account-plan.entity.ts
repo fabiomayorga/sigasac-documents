@@ -42,9 +42,4 @@ export class SingleAccountPlan {
     updatedAt: Date;
 
     // relationships
-    @OneToMany(
-        type => BudgetNotesDetail,
-        budgetNotesDetail => budgetNotesDetail.singleAccountPlan
-    )
-    public budgetNotesDetail!: BudgetNotesDetail[];
 }

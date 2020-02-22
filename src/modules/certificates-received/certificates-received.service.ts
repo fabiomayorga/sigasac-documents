@@ -1,5 +1,10 @@
-import { Injectable, Inject, ConflictException } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import {
+    Injectable,
+    Inject,
+    ConflictException,
+    NotFoundException
+} from '@nestjs/common';
+import { Repository, getConnection } from 'typeorm';
 
 import {
     CERTIFICATE_RECEIVED_DETAIL_REPOSITORY,
@@ -44,6 +49,26 @@ export class CertificatesReceivedService {
             } = await this.approverReviewerService.getOnlyActives(
                 certicateReceivedDto.schoolId
             );
+
+            certicateReceivedDto.monthId = months[0].id;
+
+            certicateReceivedDto.approverId = approverId;
+            certicateReceivedDto.reviewerId = reviewerId;
+
+            certicateReceivedDto.totalAmount = certicateReceivedDto.certificatesReceivedDetailDto
+                .map(d => d.value)
+                .reduce((acc, cur) => acc + cur);
+
+            const _certificateReceived = await this.certificateReceived.save(
+                certicateReceivedDto
+            );
+
+            await this.certificateReceivedDetail.save(
+                this.addCRIdToCRDetail(
+                    _certificateReceived.id,
+                    certicateReceivedDto.certificatesReceivedDetailDto
+                )
+            );
         } catch (error) {
             throw error;
         }
@@ -64,5 +89,84 @@ export class CertificatesReceivedService {
         } catch (error) {
             throw error;
         }
+    }
+
+    async nullyfy(schoolId: number, id: number) {
+        try {
+            const _certificateReceived = await this.certificateReceived.findOne(
+                {
+                    where: { id, schoolId }
+                }
+            );
+
+            if (_certificateReceived) {
+                _certificateReceived.state = 0;
+                await this.certificateReceived.save(_certificateReceived);
+            }
+
+            if (!_certificateReceived) {
+                throw new NotFoundException(
+                    `No existe el documento solicitado`
+                );
+            }
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async update(
+        schoolId: number,
+        id: number,
+        certificatesReceivedDetailDto: CertificateReceivedDetailDto[]
+    ) {
+        try {
+            const _certificateReceived = await this.certificateReceived.findOne(
+                {
+                    where: { id, schoolId }
+                }
+            );
+
+            // eliminar detalle
+            if (_certificateReceived) {
+                await getConnection()
+                    .createQueryBuilder()
+                    .delete()
+                    .from(CertificateReceivedDetail)
+                    .where('certificateReceivedId = :certificateReceivedId', {
+                        certificateReceivedId: _certificateReceived.id
+                    })
+                    .execute();
+
+                _certificateReceived.totalAmount = certificatesReceivedDetailDto
+                    .map(d => d.value)
+                    .reduce((acc, cur) => acc + cur);
+
+                await this.certificateReceived.save(_certificateReceived);
+
+                await this.certificateReceivedDetail.save(
+                    this.addCRIdToCRDetail(
+                        _certificateReceived.id,
+                        certificatesReceivedDetailDto
+                    )
+                );
+            }
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    private addCRIdToCRDetail(
+        certificateReceivedId: number,
+        certificatesReceivedDetailDto: CertificateReceivedDetailDto[]
+    ) {
+        const _budgetNotesDetail: CertificateReceivedDetailDto[] = [];
+
+        for (let cRDetail of certificatesReceivedDetailDto) {
+            cRDetail.certificateReceivedId = certificateReceivedId;
+
+            _budgetNotesDetail.push(cRDetail);
+        }
+
+        return _budgetNotesDetail;
     }
 }

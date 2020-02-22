@@ -45,5 +45,5 @@ export class CertificateReceivedDto {
             }
         ]
     })
-    purchaseOrdersDetailDto: CertificateReceivedDetailDto[];
+    certificatesReceivedDetailDto: CertificateReceivedDetailDto[];
 }

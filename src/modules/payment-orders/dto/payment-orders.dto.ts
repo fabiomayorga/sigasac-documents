@@ -15,6 +15,8 @@ export class PaymentOrderDto {
 
     reviewerId: number;
 
+    code: string;
+
     @ApiProperty({ required: false })
     thirdPartyId: number;
 
@@ -30,9 +32,6 @@ export class PaymentOrderDto {
     @ApiProperty({ required: false })
     observations: string;
 
-    @ApiProperty({ required: false })
-    code: string;
-
     @ApiProperty({
         type: PaymentOrderDetailDto,
         required: true,
@@ -40,8 +39,7 @@ export class PaymentOrderDto {
             {
                 value: 0,
                 budgetAccountId: 0,
-                revenueId: 0,
-                availabilityCerticateId: 0
+                revenueId: 0
             }
         ]
     })

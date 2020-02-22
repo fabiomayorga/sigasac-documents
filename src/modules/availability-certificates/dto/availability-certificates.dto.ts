@@ -14,6 +14,8 @@ export class AvailabilityCertificateDto {
 
     reviewerId: number;
 
+    code: string;
+
     @ApiProperty({ required: false })
     certificateDate: string;
 
@@ -22,9 +24,6 @@ export class AvailabilityCertificateDto {
 
     @ApiProperty({ required: false })
     observations: string;
-
-    @ApiProperty({ required: false })
-    code: string;
 
     @ApiProperty({ required: false })
     detail: string;

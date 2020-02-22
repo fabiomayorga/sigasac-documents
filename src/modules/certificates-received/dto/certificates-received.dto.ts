@@ -15,6 +15,8 @@ export class CertificateReceivedDto {
 
     reviewerId: number;
 
+    code: string;
+
     @ApiProperty({ required: false })
     thirdPartyId: number;
 
@@ -29,9 +31,6 @@ export class CertificateReceivedDto {
 
     @ApiProperty({ required: false })
     observations: string;
-
-    @ApiProperty({ required: false })
-    code: string;
 
     @ApiProperty({
         type: CertificateReceivedDetailDto,

@@ -15,6 +15,8 @@ export class PurchaseOrderDto {
 
     reviewerId: number;
 
+    code: string;
+
     @ApiProperty()
     thirdPartyId: number;
 
@@ -29,9 +31,6 @@ export class PurchaseOrderDto {
 
     @ApiProperty({ required: false })
     observations: string;
-
-    @ApiProperty({ required: false })
-    code: string;
 
     @ApiProperty({
         type: PurchaseOrderDetailDto,

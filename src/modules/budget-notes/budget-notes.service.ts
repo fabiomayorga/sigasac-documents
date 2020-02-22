@@ -156,7 +156,7 @@ export class BudgetNotesService {
                 .leftJoinAndSelect('bn.concept', 'concept')
                 .leftJoinAndSelect('bn.subconcept', 'subconcept')
                 .leftJoinAndSelect('bn.budgetNotesDetail', 'bnd')
-                .leftJoinAndSelect('bnd.singleAccountPlan', 'singleAccountPlan')
+                .leftJoinAndSelect('bnd.budgetAccount', 'budgetAccount')
                 .leftJoinAndSelect('bnd.campus', 'campus')
                 .leftJoinAndSelect('bnd.revenue', 'revenue')
                 .leftJoinAndSelect('bnd.project', 'project')

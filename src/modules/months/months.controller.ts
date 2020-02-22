@@ -28,7 +28,7 @@ import { MonthsService } from './months.service';
 import { MonthDto, ClosedMonthDto } from './dto';
 
 @Controller(`${APP.baseURL}/months`)
-@ApiTags(`months`)
+@ApiTags(`Months`)
 @ApiBearerAuth()
 export class MonthsController {
     constructor(private readonly monthsService: MonthsService) {}

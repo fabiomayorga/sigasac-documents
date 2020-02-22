@@ -24,7 +24,7 @@ import { RolesGuard, Roles } from 'src/utils';
 import { BudgetsService } from './budgets.service';
 
 @Controller(`${APP.baseURL}/budgets`)
-@ApiTags(`budgets`)
+@ApiTags(`Budgets`)
 @ApiBearerAuth()
 export class BudgetsController {
     constructor(private readonly budgetServices: BudgetsService) {}

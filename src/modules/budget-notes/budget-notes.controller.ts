@@ -30,7 +30,7 @@ import { User } from 'src/utils';
 import { userInfo } from 'os';
 
 @Controller(`${APP.baseURL}/budget-notes`)
-@ApiTags(`budget-notes`)
+@ApiTags(`Budget Notes`)
 @ApiBearerAuth()
 export class BudgetNotesController {
     constructor(private readonly budgetNotesService: BudgetNotesService) {}

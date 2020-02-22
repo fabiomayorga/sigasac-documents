@@ -29,7 +29,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard, Roles } from 'src/utils';
 
 @Controller(`${APP.baseURL}/states`)
-@ApiTags(`states`)
+@ApiTags(`States`)
 @ApiBearerAuth()
 export class StatesController {
     constructor(private readonly statesService: StatesService) {}

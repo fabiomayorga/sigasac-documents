@@ -91,6 +91,33 @@ export class AvailabilityCertificate {
     })
     schoolId: number;
 
+    @Column({
+        name: 'approver_id',
+        type: 'integer',
+        width: 11,
+        unsigned: true,
+        nullable: true
+    })
+    approverId: number;
+
+    @Column({
+        name: 'elaborator_id',
+        type: 'integer',
+        width: 11,
+        unsigned: true,
+        nullable: true
+    })
+    elaboratorId: number;
+
+    @Column({
+        name: 'reviewer_id',
+        type: 'integer',
+        width: 11,
+        unsigned: true,
+        nullable: true
+    })
+    reviewerId: number;
+
     @CreateDateColumn({
         name: 'created_at',
         type: 'timestamp without time zone',

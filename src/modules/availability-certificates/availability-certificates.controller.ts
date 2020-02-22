@@ -8,7 +8,8 @@ import {
     Put,
     Get,
     UseGuards,
-    Patch
+    Patch,
+    Query
 } from '@nestjs/common';
 
 import { Response } from 'express';
@@ -25,7 +26,10 @@ import { APP } from 'src/config';
 import { AvailabilityCertificatesService } from './availability-certificates.service';
 import { AuthGuard } from '@nestjs/passport';
 
-import { AvailabilityCertificateDto } from './dto';
+import {
+    AvailabilityCertificateDto,
+    AvailabilityCertificateParamsDto
+} from './dto';
 import { User } from 'src/utils';
 
 @Controller(`${APP.baseURL}/availability-certificates`)
@@ -80,43 +84,17 @@ export class AvailabilityCertificatesController {
         summary: 'listar',
         description: 'listado de cdp pertenecientes a un colegio'
     })
-    @UseGuards(AuthGuard('jwt'))
-    async getAll(@Res() res: Response, @User('schoolId') schoolId: number) {
-        try {
-            const availabilityCertificates = await this.availabilityCertificatesService.getAll(
-                schoolId
-            );
-
-            res.status(HttpStatus.OK).send({
-                availabilityCertificates
-            });
-        } catch (error) {
-            if (error.message.statusCode) {
-                return res.status(error.message.statusCode).send({
-                    message: error.message
-                });
-            }
-
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
-                message: error.message,
-                stack: error.stack
-            });
-        }
-    }
-
-    @Get()
-    @ApiOperation({
-        summary: 'listar monto disponible',
-        description: 'listado de cdp cuyo monto total sea mayor a 0'
-    })
-    @UseGuards(AuthGuard('jwt'))
-    async getAllByTotalAmount(
+    // @UseGuards(AuthGuard('jwt'))
+    async getAll(
         @Res() res: Response,
-        @User('schoolId') schoolId: number
+        @Query()
+        availabilityCertificateParamsDto: AvailabilityCertificateParamsDto,
+        @User('schoolId') schoolId: number = 5
     ) {
         try {
-            const availabilityCertificates = await this.availabilityCertificatesService.getAllByTotalAmount(
-                schoolId
+            const availabilityCertificates = await this.availabilityCertificatesService.getAll(
+                schoolId,
+                availabilityCertificateParamsDto.amount
             );
 
             res.status(HttpStatus.OK).send({

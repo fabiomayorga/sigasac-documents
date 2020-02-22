@@ -2,7 +2,8 @@ import {
     Injectable,
     Inject,
     ConflictException,
-    NotFoundException
+    NotFoundException,
+    Logger
 } from '@nestjs/common';
 import { Repository, getConnection } from 'typeorm';
 
@@ -35,7 +36,7 @@ export class AvailabilityCertificatesService {
         >,
         private readonly monthsService: MonthsService,
         private readonly approverReviewerService: ApproverReviewerService
-    ) {}
+    ) { }
 
     async create(availabilityCertificateDto: AvailabilityCertificateDto) {
         try {
@@ -159,36 +160,34 @@ export class AvailabilityCertificatesService {
         }
     }
 
-    async getAll(schoolId: number) {
+    async getAll(schoolId: number, amount: string) {
         try {
-            return this.availabilityCerticate
-                .createQueryBuilder('ac')
-                .leftJoinAndSelect('ac.budget', 'budget')
-                .leftJoinAndSelect('ac.month', 'month')
-                .leftJoinAndSelect('ac.availabilityCerticateDetail', 'acd')
-                .leftJoinAndSelect('acd.budgetAccount', 'budgetAccount')
-                .leftJoinAndSelect('acd.campus', 'campus')
-                .leftJoinAndSelect('acd.revenue', 'revenue')
-                .where('ac.schoolId = :schoolId', { schoolId })
-                .getMany();
-        } catch (error) {
-            throw error;
-        }
-    }
+            if (amount === 'all') {
+                return this.availabilityCerticate
+                    .createQueryBuilder('ac')
+                    .leftJoinAndSelect('ac.budget', 'budget')
+                    .leftJoinAndSelect('ac.month', 'month')
+                    .leftJoinAndSelect('ac.availabilityCerticateDetail', 'acd')
+                    .leftJoinAndSelect('acd.budgetAccount', 'budgetAccount')
+                    .leftJoinAndSelect('acd.campus', 'campus')
+                    .leftJoinAndSelect('acd.revenue', 'revenue')
+                    .where('ac.schoolId = :schoolId', { schoolId })
+                    .getMany();
+            }
 
-    async getAllByTotalAmount(schoolId: number) {
-        try {
-            return this.availabilityCerticate
-                .createQueryBuilder('ac')
-                .leftJoinAndSelect('ac.budget', 'budget')
-                .leftJoinAndSelect('ac.month', 'month')
-                .leftJoinAndSelect('ac.availabilityCerticateDetail', 'acd')
-                .leftJoinAndSelect('acd.budgetAccount', 'budgetAccount')
-                .leftJoinAndSelect('acd.campus', 'campus')
-                .leftJoinAndSelect('acd.revenue', 'revenue')
-                .where('ac.schoolId = :schoolId', { schoolId })
-                .andWhere('ac.totalAmount > 0')
-                .getMany();
+            if (amount === 'greaterThanZero') {
+                return this.availabilityCerticate
+                    .createQueryBuilder('ac')
+                    .leftJoinAndSelect('ac.budget', 'budget')
+                    .leftJoinAndSelect('ac.month', 'month')
+                    .leftJoinAndSelect('ac.availabilityCerticateDetail', 'acd')
+                    .leftJoinAndSelect('acd.budgetAccount', 'budgetAccount')
+                    .leftJoinAndSelect('acd.campus', 'campus')
+                    .leftJoinAndSelect('acd.revenue', 'revenue')
+                    .where('ac.schoolId = :schoolId', { schoolId })
+                    .andWhere('ac.totalAmount > 0')
+                    .getMany();
+            }
         } catch (error) {
             throw error;
         }

@@ -153,6 +153,7 @@ export class BudgetNotesService {
         try {
             return await this.budgetNote
                 .createQueryBuilder('bn')
+                .leftJoinAndSelect('bn.month', 'month')
                 .leftJoinAndSelect('bn.concept', 'concept')
                 .leftJoinAndSelect('bn.subconcept', 'subconcept')
                 .leftJoinAndSelect('bn.budgetNotesDetail', 'bnd')

@@ -7,7 +7,7 @@ export class BudgetNoteDetailDto {
     value: number;
 
     @ApiProperty({ required: false })
-    budgetAccountId: number;
+    singleAccountPlanId: number;
 
     @ApiProperty({ required: false })
     campusId: number;

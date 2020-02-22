@@ -65,12 +65,14 @@ export class MonthsService {
 
     async getBySchoolId(schoolId: number) {
         try {
-            return this.month
-                .createQueryBuilder('m')
-                .where('m.schoolId = :schoolId', { schoolId })
-                .andWhere('m.state = 2')
-                // .orWhere('m.state = 3')
-                .getMany();
+            return (
+                this.month
+                    .createQueryBuilder('m')
+                    .where('m.schoolId = :schoolId', { schoolId })
+                    .andWhere('m.state = 2')
+                    // .orWhere('m.state = 3')
+                    .getMany()
+            );
         } catch (error) {
             throw error;
         }

@@ -1,5 +1,10 @@
-import { Injectable, Inject, ConflictException } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import {
+    Injectable,
+    Inject,
+    ConflictException,
+    NotFoundException
+} from '@nestjs/common';
+import { Repository, getConnection } from 'typeorm';
 
 import {
     PURCHASE_ORDER_DETAIL_REPOSITORY,
@@ -83,21 +88,6 @@ export class PurchaseOrdersService {
         }
     }
 
-    private addPurchaseOrderIdToPurchaseOrderDetail(
-        purchaseOrderId: number,
-        purchaseOrdersDetail: PurchaseOrderDetailDto[]
-    ) {
-        const _purchaseOrdersDetailDetail: PurchaseOrderDetailDto[] = [];
-
-        for (let purchaseOrderDetail of purchaseOrdersDetail) {
-            purchaseOrderDetail.purchaseOrderId = purchaseOrderId;
-
-            _purchaseOrdersDetailDetail.push(purchaseOrderDetail);
-        }
-
-        return _purchaseOrdersDetailDetail;
-    }
-
     async getAll(schoolId: number) {
         try {
             return (
@@ -118,5 +108,80 @@ export class PurchaseOrdersService {
         } catch (error) {
             throw error;
         }
+    }
+
+    async nullyfy(schoolId: number, id: number) {
+        try {
+            const _purchaseOrder = await this.purchaseOrder.findOne({
+                where: { id, schoolId }
+            });
+
+            if (_purchaseOrder) {
+                _purchaseOrder.state = 0;
+                await this.purchaseOrder.save(_purchaseOrder);
+            }
+
+            if (!_purchaseOrder) {
+                throw new NotFoundException(
+                    `No existe el documento solicitado`
+                );
+            }
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async update(
+        schoolId: number,
+        id: number,
+        purchaseOrderDetailDto: PurchaseOrderDetailDto[]
+    ) {
+        try {
+            const _purchaseOrder = await this.purchaseOrder.findOne({
+                where: { id, schoolId }
+            });
+
+            // eliminar detalle
+            if (_purchaseOrder) {
+                await getConnection()
+                    .createQueryBuilder()
+                    .delete()
+                    .from(PurchaseOrderDetail)
+                    .where('certificateReceivedId = :certificateReceivedId', {
+                        certificateReceivedId: _purchaseOrder.id
+                    })
+                    .execute();
+
+                _purchaseOrder.totalAmount = purchaseOrderDetailDto
+                    .map(d => d.value)
+                    .reduce((acc, cur) => acc + cur);
+
+                await this.purchaseOrder.save(_purchaseOrder);
+
+                await this.purchaseOrderDetail.save(
+                    this.addPurchaseOrderIdToPurchaseOrderDetail(
+                        _purchaseOrder.id,
+                        purchaseOrderDetailDto
+                    )
+                );
+            }
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    private addPurchaseOrderIdToPurchaseOrderDetail(
+        purchaseOrderId: number,
+        purchaseOrdersDetail: PurchaseOrderDetailDto[]
+    ) {
+        const _purchaseOrdersDetailDetail: PurchaseOrderDetailDto[] = [];
+
+        for (let purchaseOrderDetail of purchaseOrdersDetail) {
+            purchaseOrderDetail.purchaseOrderId = purchaseOrderId;
+
+            _purchaseOrdersDetailDetail.push(purchaseOrderDetail);
+        }
+
+        return _purchaseOrdersDetailDetail;
     }
 }

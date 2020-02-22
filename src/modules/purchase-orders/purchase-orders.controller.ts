@@ -7,7 +7,8 @@ import {
     Body,
     Get,
     Put,
-    Param
+    Param,
+    Patch
 } from '@nestjs/common';
 
 import { Response } from 'express';
@@ -40,7 +41,7 @@ export class PurchaseOrdersController {
     @ApiBody({ type: PurchaseOrderDto })
     @ApiConsumes('application/x-www-form-urlencoded', 'application/json')
     @ApiOperation({
-        summary: 'creación órdenes de compra'
+        summary: 'crear'
     })
     @UseGuards(AuthGuard('jwt'))
     async create(
@@ -76,7 +77,7 @@ export class PurchaseOrdersController {
 
     @Get()
     @ApiOperation({
-        summary: 'órdenes de compra',
+        summary: 'listar',
         description: 'Listado de órdenes de compra pertenecientes a un colegio'
     })
     @UseGuards(AuthGuard('jwt'), RolesGuard)
@@ -93,6 +94,71 @@ export class PurchaseOrdersController {
             res.status(HttpStatus.OK).send({
                 purchaseOrders
             });
+        } catch (error) {
+            if (error.message.statusCode) {
+                return res.status(error.message.statusCode).send({
+                    message: error.message
+                });
+            }
+
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
+                message: error.message,
+                stack: error.stack
+            });
+        }
+    }
+
+    @Patch(':purchaseOrderId')
+    @ApiOperation({
+        summary: 'anular',
+        description: 'Anulación de orden de compra'
+    })
+    @UseGuards(AuthGuard('jwt'))
+    async nullify(
+        @Res() res: Response,
+        @Param('purchaseOrderId') purchaseOrderId: number,
+        @User('schoolId') schoolId: number
+    ) {
+        try {
+            await this.purchaseOrdersService.nullyfy(schoolId, purchaseOrderId);
+
+            res.status(HttpStatus.NO_CONTENT).end();
+        } catch (error) {
+            if (error.message.statusCode) {
+                return res.status(error.message.statusCode).send({
+                    message: error.message
+                });
+            }
+
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
+                message: error.message,
+                stack: error.stack
+            });
+        }
+    }
+
+    @Put(':purchaseOrderId')
+    @ApiBody({ type: PurchaseOrderDto })
+    @ApiConsumes('application/x-www-form-urlencoded', 'application/json')
+    @ApiOperation({
+        summary: 'actualizar detalle',
+        description: 'Actualización del detalle de orden de compra'
+    })
+    @UseGuards(AuthGuard('jwt'))
+    async update(
+        @Res() res: Response,
+        @Param('purchaseOrderId') purchaseOrderId: number,
+        @Body() purchaseOrderDto: PurchaseOrderDto,
+        @User('schoolId') schoolId: number
+    ) {
+        try {
+            await this.purchaseOrdersService.update(
+                schoolId,
+                purchaseOrderId,
+                purchaseOrderDto.purchaseOrdersDetailDto
+            );
+
+            res.status(HttpStatus.NO_CONTENT).end();
         } catch (error) {
             if (error.message.statusCode) {
                 return res.status(error.message.statusCode).send({

@@ -39,7 +39,10 @@ export class AvailabilityCertificatesController {
     @Post()
     @ApiBody({ type: AvailabilityCertificateDto })
     @ApiConsumes('application/x-www-form-urlencoded', 'application/json')
-    @ApiOperation({})
+    @ApiOperation({
+        summary: 'crear',
+        description: 'creación de cdp'
+    })
     @UseGuards(AuthGuard('jwt'))
     async create(
         @Res() res: Response,
@@ -73,7 +76,10 @@ export class AvailabilityCertificatesController {
     }
 
     @Get()
-    @ApiOperation({})
+    @ApiOperation({
+        summary: 'listar',
+        description: 'listado de cdp pertenecientes a un colegio'
+    })
     @UseGuards(AuthGuard('jwt'))
     async getAll(@Res() res: Response, @User('schoolId') schoolId: number) {
         try {
@@ -98,8 +104,43 @@ export class AvailabilityCertificatesController {
         }
     }
 
+    @Get()
+    @ApiOperation({
+        summary: 'listar monto disponible',
+        description: 'listado de cdp cuyo monto total sea mayor a 0'
+    })
+    @UseGuards(AuthGuard('jwt'))
+    async getAllByTotalAmount(
+        @Res() res: Response,
+        @User('schoolId') schoolId: number
+    ) {
+        try {
+            const availabilityCertificates = await this.availabilityCertificatesService.getAllByTotalAmount(
+                schoolId
+            );
+
+            res.status(HttpStatus.OK).send({
+                availabilityCertificates
+            });
+        } catch (error) {
+            if (error.message.statusCode) {
+                return res.status(error.message.statusCode).send({
+                    message: error.message
+                });
+            }
+
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
+                message: error.message,
+                stack: error.stack
+            });
+        }
+    }
+
     @Patch(':availabilityCertificateId')
-    @ApiOperation({})
+    @ApiOperation({
+        summary: 'anular',
+        description: 'anulacion de cdp'
+    })
     @UseGuards(AuthGuard('jwt'))
     async nullify(
         @Res() res: Response,
@@ -130,7 +171,10 @@ export class AvailabilityCertificatesController {
     @Put(':availabilityCertificateId')
     @ApiBody({ type: AvailabilityCertificateDto })
     @ApiConsumes('application/x-www-form-urlencoded', 'application/json')
-    @ApiOperation({})
+    @ApiOperation({
+        summary: 'actualizar',
+        description: 'actualización detalle de cdp'
+    })
     @UseGuards(AuthGuard('jwt'))
     async update(
         @Res() res: Response,

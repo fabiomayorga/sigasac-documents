@@ -176,6 +176,24 @@ export class AvailabilityCertificatesService {
         }
     }
 
+    async getAllByTotalAmount(schoolId: number) {
+        try {
+            return this.availabilityCerticate
+                .createQueryBuilder('ac')
+                .leftJoinAndSelect('ac.budget', 'budget')
+                .leftJoinAndSelect('ac.month', 'month')
+                .leftJoinAndSelect('ac.availabilityCerticateDetail', 'acd')
+                .leftJoinAndSelect('acd.budgetAccount', 'budgetAccount')
+                .leftJoinAndSelect('acd.campus', 'campus')
+                .leftJoinAndSelect('acd.revenue', 'revenue')
+                .where('ac.schoolId = :schoolId', { schoolId })
+                .andWhere('ac.totalAmount > 0')
+                .getMany();
+        } catch (error) {
+            throw error;
+        }
+    }
+
     async getById(id: number) {
         try {
             return this.availabilityCerticate.findOne(id);

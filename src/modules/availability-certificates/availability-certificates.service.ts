@@ -137,8 +137,8 @@ export class AvailabilityCertificatesService {
                     .createQueryBuilder()
                     .delete()
                     .from(AvailabilityCertificateDetail)
-                    .where('budgetNoteId = :budgetNoteId', {
-                        budgetNoteId: _availabilityCertificate.id
+                    .where('availabilityCertificateId = :availabilityCertificateId', {
+                        availabilityCertificateId: _availabilityCertificate.id
                     })
                     .execute();
 

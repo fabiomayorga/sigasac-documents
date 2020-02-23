@@ -172,8 +172,8 @@ export class PurchaseOrdersService {
                     .createQueryBuilder()
                     .delete()
                     .from(PurchaseOrderDetail)
-                    .where('certificateReceivedId = :certificateReceivedId', {
-                        certificateReceivedId: _purchaseOrder.id
+                    .where('purchaseOrderId = :purchaseOrderId', {
+                        purchaseOrderId: _purchaseOrder.id
                     })
                     .execute();
 

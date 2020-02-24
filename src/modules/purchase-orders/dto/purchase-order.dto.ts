@@ -32,6 +32,9 @@ export class PurchaseOrderDto {
     @ApiProperty({ required: false })
     observations: string;
 
+    @ApiProperty({ required: false })
+    budgetId: number;
+
     @ApiProperty({
         type: PurchaseOrderDetailDto,
         required: true,

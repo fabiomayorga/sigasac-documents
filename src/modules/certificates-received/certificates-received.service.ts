@@ -85,7 +85,7 @@ export class CertificatesReceivedService {
                 .leftJoinAndSelect('cr.certificatesReceivedDetail', 'crd')
                 .leftJoinAndSelect('crd.budgetAccount', 'budgetAccount')
                 .leftJoinAndSelect('crd.revenue', 'revenue')
-                .leftJoinAndSelect('crd.revenue', 'revenue')
+                .leftJoinAndSelect('crd.purchaseOrder', 'purchaseOrder')
                 .leftJoinAndSelect('cr.paymentOrdersDetail', 'pod')
                 .where('cr.schoolId = :schoolId', { schoolId })
                 .getMany();

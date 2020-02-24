@@ -27,7 +27,7 @@ export class PaymentOrdersService {
         private readonly paymentOrderDetail: Repository<PaymentOrderDetail>,
         private readonly monthsService: MonthsService,
         private readonly approverReviewerService: ApproverReviewerService
-    ) {}
+    ) { }
 
     async create(paymentOrderDto: PaymentOrderDto) {
         try {
@@ -72,7 +72,18 @@ export class PaymentOrdersService {
 
     async getAll(schoolId: number) {
         try {
-            return this.paymentOrder.find({ where: { schoolId } });
+            return this.paymentOrder
+                .createQueryBuilder('op')
+                .leftJoinAndSelect('op.month', 'month')
+                .leftJoinAndSelect('op.approver', 'approver')
+                .leftJoinAndSelect('op.reviewer', 'reviewer')
+                .leftJoinAndSelect('op.thirdParty', 'thirdParty')
+                .leftJoinAndSelect('op.paymentOrdersDetail', 'pod')
+                .leftJoinAndSelect('pod.certificateReceived', 'certificateReceived')
+                .leftJoinAndSelect('pod.budgetAccount', 'ba')
+                .leftJoinAndSelect('pod.revenue', 'revenue')
+                .where('op.schoolId = :schoolId', { schoolId })
+                .getMany();
         } catch (error) {
             throw error;
         }

@@ -29,7 +29,7 @@ export class CertificatesReceivedService {
         private readonly certificateReceived: Repository<CertificateReceived>,
         private readonly monthsService: MonthsService,
         private readonly approverReviewerService: ApproverReviewerService
-    ) {}
+    ) { }
 
     async create(certicateReceivedDto: CertificateReceivedDto) {
         try {
@@ -83,7 +83,10 @@ export class CertificatesReceivedService {
                 .leftJoinAndSelect('cr.reviewer', 'reviewer')
                 .leftJoinAndSelect('cr.thirdParty', 'tp')
                 .leftJoinAndSelect('cr.certificatesReceivedDetail', 'crd')
-                .leftJoinAndSelect('cr.PaymentOrderDetail', 'pod')
+                .leftJoinAndSelect('crd.budgetAccount', 'budgetAccount')
+                .leftJoinAndSelect('crd.revenue', 'revenue')
+                .leftJoinAndSelect('crd.revenue', 'revenue')
+                .leftJoinAndSelect('cr.paymentOrdersDetail', 'pod')
                 .where('cr.schoolId = :schoolId', { schoolId })
                 .getMany();
         } catch (error) {
@@ -100,7 +103,10 @@ export class CertificatesReceivedService {
                 .leftJoinAndSelect('cr.reviewer', 'reviewer')
                 .leftJoinAndSelect('cr.thirdParty', 'tp')
                 .leftJoinAndSelect('cr.certificatesReceivedDetail', 'crd')
-                .leftJoinAndSelect('cr.PaymentOrderDetail', 'pod')
+                .leftJoinAndSelect('crd.budgetAccount', 'budgetAccount')
+                .leftJoinAndSelect('crd.revenue', 'revenue')
+                .leftJoinAndSelect('crd.revenue', 'revenue')
+                .leftJoinAndSelect('cr.paymentOrdersDetail', 'pod')
                 .where('cr.schoolId = :schoolId', { schoolId })
                 .andWhere('cr.thirdPartyId = :thirdPartyId', { thirdPartyId })
                 .getMany();

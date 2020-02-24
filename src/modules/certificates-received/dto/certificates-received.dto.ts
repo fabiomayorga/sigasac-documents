@@ -18,6 +18,9 @@ export class CertificateReceivedDto {
     code: string;
 
     @ApiProperty({ required: false })
+    budgetId: number;
+
+    @ApiProperty({ required: false })
     thirdPartyId: number;
 
     @ApiProperty({ required: false })

@@ -91,6 +91,6 @@ export class CertificateReceivedDetail {
         purchaseOrder => purchaseOrder.certificatesReceivedDetail,
         { nullable: true }
     )
-    @JoinColumn({ name: 'revenue_id', referencedColumnName: 'id' })
+    @JoinColumn({ name: 'purchase_order_id', referencedColumnName: 'id' })
     public purchaseOrder!: PurchaseOrder;
 }

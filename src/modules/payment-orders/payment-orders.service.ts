@@ -21,9 +21,9 @@ import { PaymentOrderDto, PaymentOrderDetailDto } from './dto';
 @Injectable()
 export class PaymentOrdersService {
     constructor(
-        @Inject(PAYMENT_ORDER_DETAIL_REPOSITORY)
-        private readonly paymentOrder: Repository<PaymentOrder>,
         @Inject(PAYMENT_ORDER_REPOSITORY)
+        private readonly paymentOrder: Repository<PaymentOrder>,
+        @Inject(PAYMENT_ORDER_DETAIL_REPOSITORY)
         private readonly paymentOrderDetail: Repository<PaymentOrderDetail>,
         private readonly monthsService: MonthsService,
         private readonly approverReviewerService: ApproverReviewerService

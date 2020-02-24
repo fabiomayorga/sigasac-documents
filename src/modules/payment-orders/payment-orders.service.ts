@@ -77,6 +77,7 @@ export class PaymentOrdersService {
                 .leftJoinAndSelect('op.month', 'month')
                 .leftJoinAndSelect('op.approver', 'approver')
                 .leftJoinAndSelect('op.reviewer', 'reviewer')
+                .leftJoinAndSelect('op.budget', 'budget')
                 .leftJoinAndSelect('op.thirdParty', 'thirdParty')
                 .leftJoinAndSelect('op.paymentOrdersDetail', 'pod')
                 .leftJoinAndSelect('pod.certificateReceived', 'certificateReceived')

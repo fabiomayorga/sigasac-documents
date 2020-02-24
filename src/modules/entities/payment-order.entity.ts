@@ -13,6 +13,7 @@ import { ApproverReviewer } from '../approver-reviewer/approver-reviewer.entity'
 import { Month } from 'src/modules/months/months.entity';
 import { PaymentOrderDetail } from './payment-order-detail.entity';
 import { ThirdParty } from './third-party.entity';
+import { Budget } from '../budgets/budgets.entity';
 
 @Entity({ name: 'payment_orders' })
 export class PaymentOrder {
@@ -131,6 +132,13 @@ export class PaymentOrder {
     updatedAt: Date;
 
     // relationships
+    @ManyToOne(
+        type => Budget,
+        budget => budget.paymentsOrder
+    )
+    @JoinColumn({ name: 'budget_id', referencedColumnName: 'id' })
+    public budget!: Budget;
+    
     @OneToMany(
         type => PaymentOrderDetail,
         paymentOrderDetail => paymentOrderDetail.paymentOrder

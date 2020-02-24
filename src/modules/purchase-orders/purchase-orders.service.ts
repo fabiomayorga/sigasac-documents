@@ -97,6 +97,7 @@ export class PurchaseOrdersService {
                     .leftJoinAndSelect('order.thirdParty', 'thirdParty')
                     .leftJoinAndSelect('order.approver', 'approver')
                     .leftJoinAndSelect('order.reviewer', 'reviewer')
+                    .leftJoinAndSelect('order.budget', 'budget')
                     // .leftJoinAndSelect('order.elaborator', 'elaborator')
                     .leftJoinAndSelect('order.certificatesReceivedDetail', 'crd')
                     .leftJoinAndSelect('order.purchaseOrdersDetail', 'detail')

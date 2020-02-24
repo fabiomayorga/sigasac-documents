@@ -14,6 +14,7 @@ import { CertificateReceivedDetail } from './certificate-received-detail.entity'
 import { Month } from 'src/modules/months/months.entity';
 import { PurchaseOrderDetail } from './purchase-order-detail.entity';
 import { ThirdParty } from './third-party.entity';
+import { Budget } from '../budgets/budgets.entity';
 
 @Entity({ name: 'purchase_orders' })
 export class PurchaseOrder {
@@ -132,6 +133,13 @@ export class PurchaseOrder {
     updatedAt: Date;
 
     // relationships
+    @ManyToOne(
+        type => Budget,
+        budget => budget.purchasesOrder
+    )
+    @JoinColumn({ name: 'budget_id', referencedColumnName: 'id' })
+    public budget!: Budget;
+    
     @OneToMany(
         type => PurchaseOrderDetail,
         purchaseOrderDetail => purchaseOrderDetail.purchaseOrder

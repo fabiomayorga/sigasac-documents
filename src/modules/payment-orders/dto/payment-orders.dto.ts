@@ -42,6 +42,7 @@ export class PaymentOrderDto {
             {
                 value: 0,
                 budgetAccountId: 0,
+                certificateReceivedId: 0,
                 revenueId: 0
             }
         ]

@@ -7,7 +7,7 @@ export class PaymentOrderDetailDto {
     value: number;
 
     @ApiProperty({ required: false })
-    observations: string;
+    certificateReceivedId: number;
 
     @ApiProperty({ required: false })
     revenueId: number;

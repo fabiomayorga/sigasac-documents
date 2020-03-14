@@ -92,7 +92,7 @@ export class AnnuityController {
         }
     }
 
-    @Put(':annuity')
+    @Put(':annuityId')
     @ApiConsumes('application/x-www-form-urlencoded')
     @ApiOperation({
         summary: 'cierre anualidad',
@@ -108,13 +108,13 @@ export class AnnuityController {
     // )
     async closed(
         @Res() res: Response,
-        @Param('annuity') annuity: number,
+        @Param('annuityId') annuityId: number,
         @User('sub') sub: number
     ) {
         try {
             let closedAnnuityDto: any;
 
-            await this.annuityService.closed(annuity, closedAnnuityDto);
+            await this.annuityService.closed(annuityId, closedAnnuityDto);
 
             res.status(HttpStatus.NO_CONTENT).end();
         } catch (error) {

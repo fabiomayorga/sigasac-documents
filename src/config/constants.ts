@@ -1,4 +1,5 @@
 export const DATABASE_CONNECTION = 'DATABASE_CONNECTION';
+export const ANNUITY_REPOSITORY = 'annuities';
 export const ACTIONS_REPOSITORY = 'actions';
 export const APPROVER_REVIEWER_REPOSITORY = 'approver_reviewer';
 export const AVAILABILITY_CERTIFICATE_REPOSITORY = 'availability_certificates';

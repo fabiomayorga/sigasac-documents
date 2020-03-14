@@ -13,6 +13,7 @@ import { State } from 'src/modules/states/states.entity';
 import { PurchaseOrder } from '../entities/purchase-order.entity';
 import { CertificateReceived } from '../entities/certificate-received.entity';
 import { PaymentOrder } from '../entities/payment-order.entity';
+import { Annuity } from '../entities/annuity.entity';
 
 @Entity({ name: 'months' })
 export class Month {
@@ -31,6 +32,9 @@ export class Month {
 
     @Column({ name: 'closed_by', type: 'integer', width: 10, nullable: true })
     closedBy: number;
+
+    @Column({ name: 'annuity_id', type: 'integer', width: 10 })
+    annuityId: number;
 
     @Column({ name: 'school_id', type: 'integer', width: 10 })
     schoolId: number;
@@ -79,4 +83,11 @@ export class Month {
     )
     @JoinColumn({ name: 'state_id', referencedColumnName: 'id' })
     public state!: State;
+
+    @ManyToOne(
+        type => Annuity,
+        annuity => annuity.months
+    )
+    @JoinColumn({ name: 'annuity_id', referencedColumnName: 'id' })
+    public annuity!: Annuity;
 }

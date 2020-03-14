@@ -11,6 +11,7 @@ import { ApproverReviewerModule } from './modules/approver-reviewer/approver-rev
 import { PurchaseOrdersModule } from './modules/purchase-orders/purchase-orders.module';
 import { CertificatesReceivedModule } from './modules/certificates-received/certificates-received.module';
 import { PaymentOrdersModule } from './modules/payment-orders/payment-orders.module';
+import { AnnuityModule } from './modules/annuity/annuity.module';
 
 @Module({
     imports: [
@@ -25,7 +26,8 @@ import { PaymentOrdersModule } from './modules/payment-orders/payment-orders.mod
         ApproverReviewerModule,
         PurchaseOrdersModule,
         CertificatesReceivedModule,
-        PaymentOrdersModule
+        PaymentOrdersModule,
+        AnnuityModule
     ],
     controllers: [],
     providers: []

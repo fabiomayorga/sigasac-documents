@@ -24,6 +24,7 @@ import { APP } from 'src/config';
 
 import { RolesGuard, Roles, User } from 'src/utils';
 import { AnnuityService } from './annuity.service';
+import { AnnuityDto } from './dto';
 
 @Controller(`${APP.baseURL}/annuities`)
 @ApiTags(`Annuity`)
@@ -40,9 +41,9 @@ export class AnnuityController {
     })
     @UseGuards(AuthGuard('jwt'), RolesGuard)
     // @Roles(SUPER_ADMIN, SUPER_ADMIN_SCHOOL, CONTADOR, AUX_CONTADOR)
-    async create(@Res() res: Response, @Body() monthDto: any) {
+    async create(@Res() res: Response, @Body() annuityDto: AnnuityDto) {
         try {
-            const annuity = await this.annuityService.create(monthDto);
+            const annuity = await this.annuityService.create(annuityDto);
 
             res.status(HttpStatus.CREATED).send({
                 annuity
@@ -93,10 +94,10 @@ export class AnnuityController {
     }
 
     @Put(':annuityId')
-    @ApiConsumes('application/x-www-form-urlencoded')
+    @ApiConsumes('application/x-www-form-urlencoded', 'application/json')
     @ApiOperation({
         summary: 'cierre anualidad',
-        description: 'Cierre de una anulaidad por parte del encargado'
+        description: 'Cierre de una anualidad por parte del encargado'
     })
     @UseGuards(AuthGuard('jwt'), RolesGuard)
     // @Roles(
@@ -109,12 +110,11 @@ export class AnnuityController {
     async closed(
         @Res() res: Response,
         @Param('annuityId') annuityId: number,
-        @User('sub') sub: number
+        @User('sub') sub: number,
+        @Body() annuityDto: AnnuityDto
     ) {
         try {
-            let closedAnnuityDto: any;
-
-            await this.annuityService.closed(annuityId, closedAnnuityDto);
+            await this.annuityService.closed(annuityId, annuityDto);
 
             res.status(HttpStatus.NO_CONTENT).end();
         } catch (error) {

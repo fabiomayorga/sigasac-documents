@@ -1,8 +1,11 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Repository } from 'typeorm';
 
+import { DatesHelper } from "../../utils";
+
 import { ANNUITY_REPOSITORY } from 'src/config';
 import { Annuity } from '../entities/annuity.entity';
+import { AnnuityDto } from './dto';
 
 @Injectable()
 export class AnnuityService {
@@ -11,7 +14,7 @@ export class AnnuityService {
         private readonly annuity: Repository<Annuity>
     ) {}
 
-    async create(annuityDto: any) {
+    async create(annuityDto: AnnuityDto) {
         try {
             return await this.annuity.save(annuityDto);
         } catch (error) {
@@ -19,7 +22,7 @@ export class AnnuityService {
         }
     }
 
-    async closed(id: number, closedAnnuityDto: any) {
+    async closed(id: number, annuityDto: AnnuityDto) {
         try {
             const _annuity = await this.annuity.findOne({ where: { id } });
 
@@ -27,9 +30,15 @@ export class AnnuityService {
 
             if (_annuity) {
 
+                _annuity.state = 0;
+
                 await this.annuity.save(_annuity);
 
-                newAnnuity = await this.annuity.save({ });
+                newAnnuity = await this.annuity.save({
+                    schoolId: annuityDto.schoolId,
+                    description: annuityDto.description,
+                    year: DatesHelper.addYearToDate(_annuity.year)
+                 });
             }
 
             return newAnnuity;

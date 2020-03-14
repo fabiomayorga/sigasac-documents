@@ -9,6 +9,8 @@ export const BUDGET_REPOSITORY = 'budgets';
 export const BUDGET_NOTE_REPOSITORY = 'budget_notes';
 export const BUDGET_NOTE_DETAIL_REPOSITORY = 'budget_notes_detail';
 export const CERTIFICATE_RECEIVED_REPOSITORY = 'certificates_received';
+export const HISTORICAL_EXPENSES_REPOSITORY = 'historical_expenses';
+export const HISTORICAL_INCOME_REPOSITORY = 'historical_income';
 export const CERTIFICATE_RECEIVED_DETAIL_REPOSITORY =
     'certificates_received_detail';
 export const CONCEPT_REPOSITORY = 'concepts';

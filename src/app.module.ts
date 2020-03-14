@@ -12,6 +12,8 @@ import { PurchaseOrdersModule } from './modules/purchase-orders/purchase-orders.
 import { CertificatesReceivedModule } from './modules/certificates-received/certificates-received.module';
 import { PaymentOrdersModule } from './modules/payment-orders/payment-orders.module';
 import { AnnuityModule } from './modules/annuity/annuity.module';
+import { IncomeModule } from './modules/income/income.module';
+import { ExpensesModule } from './modules/expenses/expenses.module';
 
 @Module({
     imports: [
@@ -27,7 +29,9 @@ import { AnnuityModule } from './modules/annuity/annuity.module';
         PurchaseOrdersModule,
         CertificatesReceivedModule,
         PaymentOrdersModule,
-        AnnuityModule
+        AnnuityModule,
+        IncomeModule,
+        ExpensesModule
     ],
     controllers: [],
     providers: []

@@ -16,13 +16,12 @@ export class HttpExceptionFilter implements ExceptionFilter {
         const status = exception.getStatus();
         const stackErrors = exception.stack;
         const message = exception.message.error;
-        Logger.log(request.authInfo)
-        // const info = request.authInfo['message'];
+        const description = request.authInfo['message'];
 
         response.status(status).json({
             statusCode: status,
             message,
-            // info,
+            description,
             timestamp: new Date().toISOString(),
             path: request.url
             // stackErrors

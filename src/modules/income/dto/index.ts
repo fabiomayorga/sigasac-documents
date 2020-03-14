@@ -1,1 +1,1 @@
-export {  } from './income.dto';
+export {} from './income.dto';

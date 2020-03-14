@@ -10,7 +10,7 @@ export class IncomeService {
     constructor(
         @Inject(HISTORICAL_INCOME_REPOSITORY)
         private readonly historicalIncome: Repository<HistoricalIncome>
-    ) { }
+    ) {}
 
     async create(incomeDto: IncomeDto) {
         try {

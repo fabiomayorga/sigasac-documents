@@ -1,45 +1,45 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class IncomeDto {
-    @ApiProperty( { required: false })
+    @ApiProperty({ required: false })
     initialApproved: number;
 
-    @ApiProperty( { required: false })
+    @ApiProperty({ required: false })
     additions: number;
 
-    @ApiProperty( { required: false })
+    @ApiProperty({ required: false })
     decreases: number;
 
-    @ApiProperty( { required: false })
+    @ApiProperty({ required: false })
     transfers: number;
 
-    @ApiProperty( { required: false })
+    @ApiProperty({ required: false })
     finalApproved: number;
 
-    @ApiProperty( { required: false })
+    @ApiProperty({ required: false })
     incomes: number;
 
-    @ApiProperty( { required: false })
+    @ApiProperty({ required: false })
     cashCollections: number;
 
-    @ApiProperty( { required: false })
+    @ApiProperty({ required: false })
     paperCollections: number;
 
-    @ApiProperty( { required: false })
+    @ApiProperty({ required: false })
     otherCollections: number;
 
-    @ApiProperty( { required: false })
+    @ApiProperty({ required: false })
     pendingCollections: number;
 
-    @ApiProperty( { required: false })
+    @ApiProperty({ required: false })
     available: number;
 
-    @ApiProperty( { required: false })
+    @ApiProperty({ required: false })
     budgetAccountId: number;
 
-    @ApiProperty( { required: false })
+    @ApiProperty({ required: false })
     monthId: number;
 
-    @ApiProperty( { required: false })
+    @ApiProperty({ required: false })
     revenueId: number;
 }

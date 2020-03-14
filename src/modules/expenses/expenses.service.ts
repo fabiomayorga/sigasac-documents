@@ -11,7 +11,7 @@ export class ExpensesService {
     constructor(
         @Inject(HISTORICAL_EXPENSES_REPOSITORY)
         private readonly historicalExpenses: Repository<HistoricalExpenses>
-    ) { }
+    ) {}
 
     async create(expensesDto: ExpensesDto) {
         try {
@@ -28,7 +28,9 @@ export class ExpensesService {
             const expense = await this.historicalExpenses.findOne(id);
 
             if (expense) {
-                await this.historicalExpenses.save(expense, { data: expensesDto });
+                await this.historicalExpenses.save(expense, {
+                    data: expensesDto
+                });
             }
         } catch (error) {
             throw error;

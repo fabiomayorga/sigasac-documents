@@ -8,6 +8,6 @@ import { HistoricalIncome } from '../entities/historical_income.entity';
 export class IncomeService {
     constructor(
         @Inject(HISTORICAL_INCOME_REPOSITORY)
-        private readonly month: Repository<HistoricalIncome>
+        private readonly historicalIncome: Repository<HistoricalIncome>
     ) {}
 }

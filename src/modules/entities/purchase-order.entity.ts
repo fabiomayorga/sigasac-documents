@@ -139,7 +139,7 @@ export class PurchaseOrder {
     )
     @JoinColumn({ name: 'budget_id', referencedColumnName: 'id' })
     public budget!: Budget;
-    
+
     @OneToMany(
         type => PurchaseOrderDetail,
         purchaseOrderDetail => purchaseOrderDetail.purchaseOrder

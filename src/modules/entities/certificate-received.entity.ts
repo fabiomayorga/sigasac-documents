@@ -138,7 +138,7 @@ export class CertificateReceived {
     )
     @JoinColumn({ name: 'budget_id', referencedColumnName: 'id' })
     public budget!: Budget;
-    
+
     @OneToMany(
         type => CertificateReceivedDetail,
         certificateReceivedDetail =>

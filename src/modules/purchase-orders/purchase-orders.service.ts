@@ -99,7 +99,10 @@ export class PurchaseOrdersService {
                     .leftJoinAndSelect('order.reviewer', 'reviewer')
                     .leftJoinAndSelect('order.budget', 'budget')
                     // .leftJoinAndSelect('order.elaborator', 'elaborator')
-                    .leftJoinAndSelect('order.certificatesReceivedDetail', 'crd')
+                    .leftJoinAndSelect(
+                        'order.certificatesReceivedDetail',
+                        'crd'
+                    )
                     .leftJoinAndSelect('order.purchaseOrdersDetail', 'detail')
                     .leftJoinAndSelect('detail.budgetAccount', 'ba')
                     .leftJoinAndSelect('detail.revenue', 'r')
@@ -122,7 +125,10 @@ export class PurchaseOrdersService {
                     .leftJoinAndSelect('order.reviewer', 'reviewer')
                     .leftJoinAndSelect('order.budget', 'budget')
                     // .leftJoinAndSelect('order.elaborator', 'elaborator')
-                    .leftJoinAndSelect('order.certificatesReceivedDetail', 'crd')
+                    .leftJoinAndSelect(
+                        'order.certificatesReceivedDetail',
+                        'crd'
+                    )
                     .leftJoinAndSelect('order.purchaseOrdersDetail', 'detail')
                     .leftJoinAndSelect('detail.budgetAccount', 'ba')
                     .leftJoinAndSelect('detail.revenue', 'r')

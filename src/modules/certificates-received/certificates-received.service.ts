@@ -29,7 +29,7 @@ export class CertificatesReceivedService {
         private readonly certificateReceived: Repository<CertificateReceived>,
         private readonly monthsService: MonthsService,
         private readonly approverReviewerService: ApproverReviewerService
-    ) { }
+    ) {}
 
     async create(certicateReceivedDto: CertificateReceivedDto) {
         try {

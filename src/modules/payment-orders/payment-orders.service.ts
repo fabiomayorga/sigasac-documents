@@ -27,7 +27,7 @@ export class PaymentOrdersService {
         private readonly paymentOrderDetail: Repository<PaymentOrderDetail>,
         private readonly monthsService: MonthsService,
         private readonly approverReviewerService: ApproverReviewerService
-    ) { }
+    ) {}
 
     async create(paymentOrderDto: PaymentOrderDto) {
         try {
@@ -80,7 +80,10 @@ export class PaymentOrdersService {
                 .leftJoinAndSelect('op.budget', 'budget')
                 .leftJoinAndSelect('op.thirdParty', 'thirdParty')
                 .leftJoinAndSelect('op.paymentOrdersDetail', 'pod')
-                .leftJoinAndSelect('pod.certificateReceived', 'certificateReceived')
+                .leftJoinAndSelect(
+                    'pod.certificateReceived',
+                    'certificateReceived'
+                )
                 .leftJoinAndSelect('pod.budgetAccount', 'ba')
                 .leftJoinAndSelect('pod.revenue', 'revenue')
                 .where('op.schoolId = :schoolId', { schoolId })

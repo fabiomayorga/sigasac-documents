@@ -36,7 +36,7 @@ export class AvailabilityCertificatesService {
         >,
         private readonly monthsService: MonthsService,
         private readonly approverReviewerService: ApproverReviewerService
-    ) { }
+    ) {}
 
     async create(availabilityCertificateDto: AvailabilityCertificateDto) {
         try {
@@ -137,9 +137,13 @@ export class AvailabilityCertificatesService {
                     .createQueryBuilder()
                     .delete()
                     .from(AvailabilityCertificateDetail)
-                    .where('availabilityCertificateId = :availabilityCertificateId', {
-                        availabilityCertificateId: _availabilityCertificate.id
-                    })
+                    .where(
+                        'availabilityCertificateId = :availabilityCertificateId',
+                        {
+                            availabilityCertificateId:
+                                _availabilityCertificate.id
+                        }
+                    )
                     .execute();
 
                 _availabilityCertificate.totalAmount = availabilityCertificateDetailDto

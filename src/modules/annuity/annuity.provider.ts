@@ -1,12 +1,8 @@
 import { Connection } from 'typeorm';
 
-import {
-    DATABASE_CONNECTION,
-    ANNUITY_REPOSITORY
-} from '../../config';
+import { DATABASE_CONNECTION, ANNUITY_REPOSITORY } from '../../config';
 
 import { Annuity } from '../entities/annuity.entity';
-
 
 export const AnnuityProvider = [
     {

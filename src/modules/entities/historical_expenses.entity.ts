@@ -7,7 +7,7 @@ import {
     PrimaryGeneratedColumn
 } from 'typeorm';
 
-import { Month } from "../months/months.entity";
+import { Month } from '../months/months.entity';
 
 @Entity({ name: 'historical_expenses' })
 export class HistoricalExpenses {

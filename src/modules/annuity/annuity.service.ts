@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Repository } from 'typeorm';
 
-import { DatesHelper } from "../../utils";
+import { DatesHelper } from '../../utils';
 
 import { ANNUITY_REPOSITORY } from 'src/config';
 import { Annuity } from '../entities/annuity.entity';
@@ -29,7 +29,6 @@ export class AnnuityService {
             let newAnnuity: Annuity;
 
             if (_annuity) {
-
                 _annuity.state = 0;
 
                 await this.annuity.save(_annuity);
@@ -38,7 +37,7 @@ export class AnnuityService {
                     schoolId: annuityDto.schoolId,
                     description: annuityDto.description,
                     year: DatesHelper.addYearToDate(_annuity.year)
-                 });
+                });
             }
 
             return newAnnuity;
